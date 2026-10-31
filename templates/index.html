@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Library Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2>📚 SmartLib</h2>
+
+        <nav>
+            <a href="/" class="active">▦ Dashboard</a>
+            <a href="/books">📖 Books</a>
+            <a href="/categories">📂 Categories</a>
+            <a href="/circulation">📊 Circulation</a>
+            <a href="/reports">📑 Reports</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>Library Analytics</p>
+            <small>Project Edition 2026</small>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <h1>Dashboard Overview</h1>
+                <p>Welcome to your Smart Library Analytics System</p>
+            </div>
+
+            <div class="profile">👤 Admin</div>
+
+        </header>
+
+
+        <!-- WELCOME SECTION -->
+        <section class="welcome">
+
+            <div>
+                <h2>Library Insights at a Glance ✨</h2>
+
+                <p>
+                    Monitor borrowing trends and understand
+                    library performance.
+                </p>
+            </div>
+
+            <span>📚</span>
+
+        </section>
+
+
+        <!-- STATISTICS CARDS -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <p>Total Borrowings</p>
+                <h2>{{ total_books }}</h2>
+                <span>All recorded loans</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Active Loans</p>
+                <h2>{{ active }}</h2>
+                <span>Currently issued books</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Late Returns</p>
+                <h2>{{ late_returns }}</h2>
+                <span>Recorded late returns</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Book Categories</p>
+                <h2>{{ total_categories }}</h2>
+                <span>Unique categories</span>
+            </div>
+
+        </section>
+
+
+        <!-- LOAN STATUS -->
+        <section class="content-card">
+
+            <h2>📊 Loan Status Summary</h2>
+
+            <div class="summary-grid">
+
+                <div>
+                    <p>Returned Books</p>
+                    <h3>{{ returned }}</h3>
+                </div>
+
+                <div>
+                    <p>Active Loans</p>
+                    <h3>{{ active }}</h3>
+                </div>
+
+                <div>
+                    <p>Overdue Loans</p>
+                    <h3>{{ overdue }}</h3>
+                </div>
+
+                <div>
+                    <p>Late Return Rate</p>
+                    <h3>{{ late_rate }}%</h3>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LIBRARY PERFORMANCE -->
+        <section class="content-card">
+
+            <h2>📈 Library Performance</h2>
+
+            <p>
+                Explore borrowing patterns, popular books,
+                category performance and loan status.
+            </p>
+
+            <div class="quick-links">
+
+                <a href="/books">Explore Books →</a>
+
+                <a href="/categories">View Categories →</a>
+
+                <a href="/circulation">Track Circulation →</a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS CHARTS -->
+        <section class="chart-section">
+
+            <h2>Library Analytics</h2>
+
+            <p class="chart-subtitle">
+                Visual analysis of library borrowing and circulation data
+            </p>
+
+            <div class="charts-grid">
+
+                <div class="chart-card">
+                    <h3>Monthly Circulation</h3>
+
+                    <img
+                        src="{{ url_for('static', filename='images/monthly_circulation.png') }}"
+                        alt="Monthly Circulation Chart">
+                </div>
+
+
+                <div class="chart-card">
+                    <h3>Top 10 Most Borrowed Books</h3>
+
+                    <img
+                        src="{{ url_for('static', filename='images/top_10_books.png') }}"
+                        alt="Top 10 Books Chart">
+                </div>
+
+
+                <div class="chart-card">
+                    <h3>Category-wise Borrowing</h3>
+
+                    <img
+                        src="{{ url_for('static', filename='images/category_analysis.png') }}"
+                        alt="Category Analysis Chart">
+                </div>
+
+
+                <div class="chart-card">
+                    <h3>Loan Status Analysis</h3>
+
+                    <img
+                        src="{{ url_for('static', filename='images/loan_status_analysis.png') }}"
+                        alt="Loan Status Chart">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="dashboard-footer">
+            <p>Smart Library Analytics System | Project Edition 2026</p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

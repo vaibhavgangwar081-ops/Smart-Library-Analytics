@@ -1,0 +1,201 @@
+﻿Loan_ID,Book_ID,Book_Title,Author,Category,Book_Origin,Issue_Date,Due_Date,Return_Date,Loan_Status
+L0001,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2025-01-26,2025-02-13,2025-02-13,Returned
+L0002,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2026-07-13,2026-07-21,2026-07-17,Returned
+L0003,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-08-12,2025-08-22,2025-08-18,Returned
+L0004,B013,The Palace of Illusions,Chitra Banerjee Divakaruni,Mythology,Indian,2026-07-13,2026-07-26,2026-07-27,Returned
+L0005,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2025-06-13,2025-07-01,2025-07-01,Returned
+L0006,B014,The Forest of Enchantments,Chitra Banerjee Divakaruni,Mythology,Indian,2025-12-11,2025-12-19,2025-12-17,Returned
+L0007,B023,2 States,Chetan Bhagat,Romance,Indian,2026-09-11,2026-09-22,,Active
+L0008,B030,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2026-07-04,2026-07-12,,Overdue
+L0009,B025,The White Mughals,William Dalrymple,History,Indian,2025-03-22,2025-04-06,2025-04-07,Returned
+L0010,B024,The 3 Mistakes of My Life,Chetan Bhagat,Fiction,Indian,2026-08-15,2026-08-25,2026-08-21,Returned
+L0011,B015,The Immortals of Meluha,Amish Tripathi,Fantasy,Indian,2025-10-24,2025-11-01,,Active
+L0012,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2026-01-25,2026-02-05,2026-02-12,Returned
+L0013,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2026-01-15,2026-01-27,2026-01-27,Returned
+L0014,B005,God of Small Things,Arundhati Roy,Fiction,Indian,2025-06-25,2025-07-10,2025-07-08,Returned
+L0015,B025,The White Mughals,William Dalrymple,History,Indian,2025-10-04,2025-10-25,2025-10-26,Returned
+L0016,B021,The God of Small Things,Arundhati Roy,Fiction,Indian,2025-02-27,2025-03-09,,Active
+L0017,B021,The God of Small Things,Arundhati Roy,Fiction,Indian,2026-02-15,2026-02-26,2026-03-05,Returned
+L0018,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2025-11-19,2025-11-29,2025-11-29,Returned
+L0019,B030,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-05-27,2025-06-07,2025-06-10,Returned
+L0020,B035,The Hobbit,J. R. R. Tolkien,Fantasy,International,2025-09-27,2025-10-15,2025-10-22,Returned
+L0021,B026,The Argumentative Indian,Amartya Sen,Essays,Indian,2026-01-06,2026-01-16,,Overdue
+L0022,B009,The Inheritance of Loss,Kiran Desai,Fiction,Indian,2026-06-06,2026-06-20,2026-06-16,Returned
+L0023,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2025-06-06,2025-06-23,2025-06-26,Returned
+L0024,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-03-07,2025-03-20,2025-04-01,Returned
+L0025,B034,1984,George Orwell,Dystopian,International,2025-09-15,2025-09-30,,Active
+L0026,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2025-04-28,2025-05-15,,Active
+L0027,B018,The Alchemist of the East,Madhulika Liddle,Historical Fiction,Indian,2025-12-15,2025-12-23,2025-12-21,Returned
+L0028,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2025-09-27,2025-10-12,,Active
+L0029,B033,Pride and Prejudice,Jane Austen,Classic,International,2025-04-19,2025-05-09,2025-05-16,Returned
+L0030,B033,Pride and Prejudice,Jane Austen,Classic,International,2025-07-23,2025-08-01,2025-07-30,Returned
+L0031,B034,1984,George Orwell,Dystopian,International,2025-01-01,2025-01-17,2025-01-13,Returned
+L0032,B024,The 3 Mistakes of My Life,Chetan Bhagat,Fiction,Indian,2025-11-11,2025-11-21,2025-11-28,Returned
+L0033,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-03-29,2025-04-16,2025-04-12,Returned
+L0034,B035,The Hobbit,J. R. R. Tolkien,Fantasy,International,2025-05-09,2025-05-18,2025-05-30,Returned
+L0035,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2025-09-29,2025-10-14,,Active
+L0036,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2025-08-05,2025-08-26,2025-08-29,Returned
+L0037,B013,The Palace of Illusions,Chitra Banerjee Divakaruni,Mythology,Indian,2025-11-16,2025-11-29,,Overdue
+L0038,B024,The 3 Mistakes of My Life,Chetan Bhagat,Fiction,Indian,2026-03-25,2026-04-15,2026-04-13,Returned
+L0039,B015,The Immortals of Meluha,Amish Tripathi,Fantasy,Indian,2025-03-07,2025-03-19,2025-03-20,Returned
+L0040,B038,The Little Prince,Antoine de Saint-Exupéry,Fable,International,2025-08-14,2025-08-21,2025-08-22,Returned
+L0041,B015,The Immortals of Meluha,Amish Tripathi,Fantasy,Indian,2025-03-11,2025-04-01,2025-04-01,Returned
+L0042,B033,Pride and Prejudice,Jane Austen,Classic,International,2025-09-01,2025-09-12,2025-09-12,Returned
+L0043,B009,The Inheritance of Loss,Kiran Desai,Fiction,Indian,2026-08-08,2026-08-24,2026-08-27,Returned
+L0044,B027,The Great Indian Novel,Shashi Tharoor,Satire,Indian,2025-07-14,2025-07-22,2025-07-22,Returned
+L0045,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2026-02-25,2026-03-11,,Active
+L0046,B004,Malgudi Days,R. K. Narayan,Short Stories,Indian,2025-04-11,2025-04-18,2025-04-18,Returned
+L0047,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2025-09-12,2025-09-22,2025-09-23,Returned
+L0048,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2025-07-07,2025-07-18,2025-07-25,Returned
+L0049,B005,God of Small Things,Arundhati Roy,Fiction,Indian,2026-03-30,2026-04-18,,Active
+L0050,B036,To Kill a Mockingbird,Harper Lee,Classic,International,2025-04-11,2025-04-18,2025-04-19,Returned
+L0051,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2025-04-06,2025-04-27,,Active
+L0052,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2025-06-20,2025-07-03,2025-07-03,Returned
+L0053,B026,The Argumentative Indian,Amartya Sen,Essays,Indian,2025-03-02,2025-03-11,2025-03-23,Returned
+L0054,B017,The Oath of the Vayuputras,Amish Tripathi,Fantasy,Indian,2026-04-11,2026-04-22,2026-05-04,Returned
+L0055,B036,To Kill a Mockingbird,Harper Lee,Classic,International,2026-05-14,2026-05-23,2026-05-23,Returned
+L0056,B004,Malgudi Days,R. K. Narayan,Short Stories,Indian,2026-08-17,2026-09-04,2026-09-07,Returned
+L0057,B004,Malgudi Days,R. K. Narayan,Short Stories,Indian,2025-02-21,2025-03-09,2025-03-16,Returned
+L0058,B034,1984,George Orwell,Dystopian,International,2025-06-11,2025-06-18,,Overdue
+L0059,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-07-10,2025-07-18,2025-07-21,Returned
+L0060,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2026-02-18,2026-02-26,,Overdue
+L0061,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2025-09-10,2025-09-26,2025-09-27,Returned
+L0062,B027,The Great Indian Novel,Shashi Tharoor,Satire,Indian,2026-08-21,2026-09-06,2026-09-13,Returned
+L0063,B014,The Forest of Enchantments,Chitra Banerjee Divakaruni,Mythology,Indian,2025-11-18,2025-11-28,2025-11-26,Returned
+L0064,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2026-04-14,2026-04-26,,Overdue
+L0065,B005,God of Small Things,Arundhati Roy,Fiction,Indian,2025-01-10,2025-01-24,2025-01-25,Returned
+L0066,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2025-03-17,2025-04-01,2025-04-01,Returned
+L0067,B023,2 States,Chetan Bhagat,Romance,Indian,2025-03-12,2025-04-02,2025-04-02,Returned
+L0068,B029,The Namesake,Jhumpa Lahiri,Fiction,Indian,2026-07-11,2026-07-29,2026-08-10,Returned
+L0069,B034,1984,George Orwell,Dystopian,International,2025-01-09,2025-01-26,,Active
+L0070,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-04-17,2025-05-08,2025-05-06,Returned
+L0071,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2026-07-21,2026-07-30,2026-07-31,Returned
+L0072,B022,Five Point Someone,Chetan Bhagat,Fiction,Indian,2025-07-28,2025-08-14,2025-08-14,Returned
+L0073,B032,The Suitable Boy,Vikram Seth,Fiction,Indian,2025-09-15,2025-10-06,,Active
+L0074,B004,Malgudi Days,R. K. Narayan,Short Stories,Indian,2025-04-05,2025-04-22,2025-04-22,Returned
+L0075,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2025-12-08,2025-12-27,2026-01-08,Returned
+L0076,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2026-03-29,2026-04-13,2026-04-14,Returned
+L0077,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2025-03-19,2025-04-09,2025-04-07,Returned
+L0078,B003,The Guide,R. K. Narayan,Fiction,Indian,2026-01-14,2026-01-30,2026-01-30,Returned
+L0079,B003,The Guide,R. K. Narayan,Fiction,Indian,2025-11-12,2025-11-24,,Active
+L0080,B003,The Guide,R. K. Narayan,Fiction,Indian,2026-01-02,2026-01-12,2026-01-15,Returned
+L0081,B023,2 States,Chetan Bhagat,Romance,Indian,2026-07-28,2026-08-18,,Active
+L0082,B040,The Catcher in the Rye,J. D. Salinger,Coming-of-Age,International,2025-06-08,2025-06-29,,Overdue
+L0083,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2025-07-01,2025-07-22,2025-07-20,Returned
+L0084,B022,Five Point Someone,Chetan Bhagat,Fiction,Indian,2026-02-26,2026-03-17,2026-03-20,Returned
+L0085,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2025-10-01,2025-10-10,,Active
+L0086,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2026-01-27,2026-02-16,2026-02-17,Returned
+L0087,B013,The Palace of Illusions,Chitra Banerjee Divakaruni,Mythology,Indian,2026-04-17,2026-04-29,2026-05-02,Returned
+L0088,B015,The Immortals of Meluha,Amish Tripathi,Fantasy,Indian,2025-08-17,2025-08-24,2025-08-24,Returned
+L0089,B018,The Alchemist of the East,Madhulika Liddle,Historical Fiction,Indian,2025-03-13,2025-04-01,2025-04-02,Returned
+L0090,B026,The Argumentative Indian,Amartya Sen,Essays,Indian,2026-07-04,2026-07-16,,Overdue
+L0091,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2025-09-25,2025-10-04,2025-10-16,Returned
+L0092,B003,The Guide,R. K. Narayan,Fiction,Indian,2025-04-22,2025-05-08,2025-05-11,Returned
+L0093,B021,The God of Small Things,Arundhati Roy,Fiction,Indian,2026-03-23,2026-04-08,,Overdue
+L0094,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2026-01-30,2026-02-20,2026-02-20,Returned
+L0095,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2025-01-02,2025-01-17,,Overdue
+L0096,B035,The Hobbit,J. R. R. Tolkien,Fantasy,International,2025-07-21,2025-08-02,2025-08-14,Returned
+L0097,B022,Five Point Someone,Chetan Bhagat,Fiction,Indian,2025-11-18,2025-12-05,,Active
+L0098,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2026-06-04,2026-06-15,2026-06-15,Returned
+L0099,B019,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2026-07-22,2026-07-31,2026-08-03,Returned
+L0100,B025,The White Mughals,William Dalrymple,History,Indian,2025-06-28,2025-07-14,2025-07-14,Returned
+L0101,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2025-11-08,2025-11-19,2025-11-22,Returned
+L0102,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-11-26,2025-12-10,2025-12-13,Returned
+L0103,B033,Pride and Prejudice,Jane Austen,Classic,International,2026-04-30,2026-05-19,,Active
+L0104,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2025-03-28,2025-04-08,2025-04-09,Returned
+L0105,B022,Five Point Someone,Chetan Bhagat,Fiction,Indian,2025-04-06,2025-04-26,,Overdue
+L0106,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2025-11-14,2025-11-24,,Active
+L0107,B010,A Suitable Boy,Vikram Seth,Fiction,Indian,2025-01-26,2025-02-02,2025-02-03,Returned
+L0108,B005,God of Small Things,Arundhati Roy,Fiction,Indian,2026-04-12,2026-04-25,,Active
+L0109,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2025-07-19,2025-08-06,2025-08-07,Returned
+L0110,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2025-06-01,2025-06-18,2025-06-25,Returned
+L0111,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2026-03-12,2026-03-22,2026-04-03,Returned
+L0112,B034,1984,George Orwell,Dystopian,International,2026-04-21,2026-04-28,2026-05-05,Returned
+L0113,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2026-04-13,2026-04-22,,Active
+L0114,B034,1984,George Orwell,Dystopian,International,2026-07-27,2026-08-12,2026-08-15,Returned
+L0115,B029,The Namesake,Jhumpa Lahiri,Fiction,Indian,2026-06-01,2026-06-14,,Active
+L0116,B036,To Kill a Mockingbird,Harper Lee,Classic,International,2026-04-02,2026-04-23,2026-04-30,Returned
+L0117,B029,The Namesake,Jhumpa Lahiri,Fiction,Indian,2025-09-23,2025-10-12,2025-10-13,Returned
+L0118,B034,1984,George Orwell,Dystopian,International,2026-05-12,2026-05-29,2026-05-29,Returned
+L0119,B019,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2025-08-29,2025-09-09,2025-09-16,Returned
+L0120,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-05-22,2025-05-31,2025-06-03,Returned
+L0121,B014,The Forest of Enchantments,Chitra Banerjee Divakaruni,Mythology,Indian,2025-03-07,2025-03-20,2025-03-21,Returned
+L0122,B027,The Great Indian Novel,Shashi Tharoor,Satire,Indian,2025-03-05,2025-03-15,,Active
+L0123,B025,The White Mughals,William Dalrymple,History,Indian,2026-08-22,2026-09-09,2026-09-16,Returned
+L0124,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2026-01-25,2026-02-08,2026-02-08,Returned
+L0125,B025,The White Mughals,William Dalrymple,History,Indian,2026-03-06,2026-03-21,2026-03-22,Returned
+L0126,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-08-14,2025-08-28,2025-08-28,Returned
+L0127,B002,The Discovery of India,Jawaharlal Nehru,History,Indian,2026-02-03,2026-02-15,2026-02-18,Returned
+L0128,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2026-04-24,2026-05-15,2026-05-16,Returned
+L0129,B002,The Discovery of India,Jawaharlal Nehru,History,Indian,2026-02-08,2026-02-24,2026-02-20,Returned
+L0130,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2025-05-19,2025-06-08,2025-06-04,Returned
+L0131,B025,The White Mughals,William Dalrymple,History,Indian,2025-12-02,2025-12-12,2025-12-12,Returned
+L0132,B025,The White Mughals,William Dalrymple,History,Indian,2025-10-12,2025-10-31,,Overdue
+L0133,B027,The Great Indian Novel,Shashi Tharoor,Satire,Indian,2025-09-16,2025-10-06,2025-10-02,Returned
+L0134,B035,The Hobbit,J. R. R. Tolkien,Fantasy,International,2025-02-23,2025-03-07,2025-03-03,Returned
+L0135,B003,The Guide,R. K. Narayan,Fiction,Indian,2025-02-01,2025-02-11,2025-02-07,Returned
+L0136,B010,A Suitable Boy,Vikram Seth,Fiction,Indian,2025-09-02,2025-09-11,2025-09-09,Returned
+L0137,B014,The Forest of Enchantments,Chitra Banerjee Divakaruni,Mythology,Indian,2026-04-22,2026-05-10,2026-05-10,Returned
+L0138,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-04-28,2025-05-17,,Active
+L0139,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-04-21,2025-05-07,2025-05-07,Returned
+L0140,B025,The White Mughals,William Dalrymple,History,Indian,2026-02-11,2026-03-01,2026-03-02,Returned
+L0141,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2025-04-15,2025-05-03,,Active
+L0142,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-05-04,2025-05-23,,Overdue
+L0143,B003,The Guide,R. K. Narayan,Fiction,Indian,2025-12-22,2026-01-06,2026-01-06,Returned
+L0144,B033,Pride and Prejudice,Jane Austen,Classic,International,2025-12-16,2025-12-23,,Active
+L0145,B032,The Suitable Boy,Vikram Seth,Fiction,Indian,2025-04-19,2025-05-02,,Overdue
+L0146,B030,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-06-06,2025-06-19,2025-06-20,Returned
+L0147,B018,The Alchemist of the East,Madhulika Liddle,Historical Fiction,Indian,2026-07-06,2026-07-25,2026-07-25,Returned
+L0148,B038,The Little Prince,Antoine de Saint-Exupéry,Fable,International,2025-10-02,2025-10-14,,Active
+L0149,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-10-13,2025-11-03,2025-11-06,Returned
+L0150,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2026-01-24,2026-02-05,2026-02-12,Returned
+L0151,B012,Interpreter of Maladies,Jhumpa Lahiri,Short Stories,Indian,2026-05-15,2026-05-25,2026-05-25,Returned
+L0152,B018,The Alchemist of the East,Madhulika Liddle,Historical Fiction,Indian,2026-09-03,2026-09-21,,Active
+L0153,B036,To Kill a Mockingbird,Harper Lee,Classic,International,2025-01-11,2025-01-26,,Overdue
+L0154,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-09-05,2025-09-23,2025-09-24,Returned
+L0155,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2026-05-03,2026-05-20,2026-05-21,Returned
+L0156,B002,The Discovery of India,Jawaharlal Nehru,History,Indian,2025-04-06,2025-04-17,2025-04-20,Returned
+L0157,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2026-08-19,2026-08-31,2026-09-01,Returned
+L0158,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2026-07-18,2026-07-30,2026-07-31,Returned
+L0159,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-09-15,2025-09-25,2025-09-23,Returned
+L0160,B008,Midnight's Children,Salman Rushdie,Fiction,Indian,2026-07-03,2026-07-22,2026-07-20,Returned
+L0161,B031,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2025-10-11,2025-10-29,2025-11-01,Returned
+L0162,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-10-17,2025-10-25,,Active
+L0163,B019,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2025-08-21,2025-09-02,2025-08-29,Returned
+L0164,B035,The Hobbit,J. R. R. Tolkien,Fantasy,International,2025-05-10,2025-05-21,2025-05-17,Returned
+L0165,B019,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2025-05-10,2025-05-27,,Active
+L0166,B032,The Suitable Boy,Vikram Seth,Fiction,Indian,2025-04-16,2025-05-06,2025-05-06,Returned
+L0167,B031,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2026-03-28,2026-04-09,2026-04-05,Returned
+L0168,B031,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2025-04-27,2025-05-17,2025-05-18,Returned
+L0169,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2025-02-24,2025-03-05,2025-03-06,Returned
+L0170,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-03-29,2025-04-08,2025-04-11,Returned
+L0171,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2026-09-03,2026-09-22,2026-09-25,Returned
+L0172,B025,The White Mughals,William Dalrymple,History,Indian,2026-04-07,2026-04-28,2026-05-05,Returned
+L0173,B028,An Era of Darkness,Shashi Tharoor,History,Indian,2025-11-09,2025-11-25,2025-11-26,Returned
+L0174,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2025-08-01,2025-08-18,2025-08-21,Returned
+L0175,B011,The Namesake,Jhumpa Lahiri,Fiction,Indian,2025-09-03,2025-09-12,2025-09-10,Returned
+L0176,B027,The Great Indian Novel,Shashi Tharoor,Satire,Indian,2026-04-07,2026-04-25,2026-04-25,Returned
+L0177,B015,The Immortals of Meluha,Amish Tripathi,Fantasy,Indian,2025-10-23,2025-11-10,2025-11-17,Returned
+L0178,B005,God of Small Things,Arundhati Roy,Fiction,Indian,2025-08-28,2025-09-18,2025-09-21,Returned
+L0179,B038,The Little Prince,Antoine de Saint-Exupéry,Fable,International,2025-07-22,2025-08-04,2025-08-04,Returned
+L0180,B010,A Suitable Boy,Vikram Seth,Fiction,Indian,2025-09-30,2025-10-20,2025-10-16,Returned
+L0181,B020,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2026-09-02,2026-09-20,,Active
+L0182,B019,The Blue Umbrella,Ruskin Bond,Children's Fiction,Indian,2026-03-26,2026-04-03,2026-04-03,Returned
+L0183,B026,The Argumentative Indian,Amartya Sen,Essays,Indian,2025-10-06,2025-10-21,2025-10-21,Returned
+L0184,B039,The Diary of a Young Girl,Anne Frank,Diary,International,2025-02-10,2025-03-03,2025-03-03,Returned
+L0185,B017,The Oath of the Vayuputras,Amish Tripathi,Fantasy,Indian,2025-01-27,2025-02-04,2025-02-07,Returned
+L0186,B037,The Great Gatsby,F. Scott Fitzgerald,Classic,International,2026-08-25,2026-09-01,,Overdue
+L0187,B018,The Alchemist of the East,Madhulika Liddle,Historical Fiction,Indian,2026-08-14,2026-08-21,,Active
+L0188,B012,Interpreter of Maladies,Jhumpa Lahiri,Short Stories,Indian,2026-04-27,2026-05-12,2026-05-19,Returned
+L0189,B012,Interpreter of Maladies,Jhumpa Lahiri,Short Stories,Indian,2026-08-23,2026-09-05,2026-09-06,Returned
+L0190,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2026-04-27,2026-05-09,2026-05-09,Returned
+L0191,B007,The White Tiger,Aravind Adiga,Fiction,Indian,2025-06-14,2025-06-26,2025-06-27,Returned
+L0192,B026,The Argumentative Indian,Amartya Sen,Essays,Indian,2026-07-18,2026-07-25,2026-07-25,Returned
+L0193,B021,The God of Small Things,Arundhati Roy,Fiction,Indian,2025-04-29,2025-05-18,2025-05-19,Returned
+L0194,B001,Wings of Fire,A. P. J. Abdul Kalam,Biography,Indian,2026-07-10,2026-07-24,2026-07-22,Returned
+L0195,B024,The 3 Mistakes of My Life,Chetan Bhagat,Fiction,Indian,2026-05-26,2026-06-12,2026-06-08,Returned
+L0196,B018,The Alchemist of the East,Madhulika Liddle,Historical Fiction,Indian,2026-07-17,2026-07-26,,Overdue
+L0197,B029,The Namesake,Jhumpa Lahiri,Fiction,Indian,2026-05-12,2026-05-20,2026-05-21,Returned
+L0198,B016,The Secret of the Nagas,Amish Tripathi,Fantasy,Indian,2025-06-12,2025-06-23,2025-06-24,Returned
+L0199,B006,Train to Pakistan,Khushwant Singh,Historical Fiction,Indian,2025-08-19,2025-09-08,,Overdue
+L0200,B030,The Room on the Roof,Ruskin Bond,Coming-of-Age,Indian,2025-05-01,2025-05-18,,Active

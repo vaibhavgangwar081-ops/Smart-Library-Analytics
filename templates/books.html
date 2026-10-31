@@ -1,0 +1,56 @@
+<!-- Books page: we will build this later. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Books</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="books-page">
+
+        <h1>Library Books</h1>
+        <p>Explore all books available in the library dataset.</p>
+
+        <a href="/">← Back to Dashboard</a>
+
+        <div class="books-table-container">
+
+            <table class="books-table">
+
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Origin</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book.Book_ID }}</td>
+                        <td>{{ book.Book_Title }}</td>
+                        <td>{{ book.Author }}</td>
+                        <td>{{ book.Category }}</td>
+                        <td>{{ book.Book_Origin }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

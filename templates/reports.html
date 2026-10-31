@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Analytics Reports</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>📚 Smart Library</h2>
+
+        <nav>
+            <a href="/">🏠 Dashboard</a>
+            <a href="/books">📖 Books</a>
+            <a href="/categories">📂 Categories</a>
+            <a href="/circulation">📊 Circulation</a>
+            <a href="/reports" class="active">📄 Reports</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <div class="topbar">
+            <h1>Library Analytics Reports</h1>
+        </div>
+
+        <section class="welcome">
+            <h2>Data Analytics Summary 📊</h2>
+            <p>
+                A detailed overview of library borrowing,
+                book circulation and return performance.
+            </p>
+        </section>
+
+        <!-- Basic Statistics -->
+        <section class="summary-grid">
+
+            <div class="stat-card">
+                <h3>Total Borrowings</h3>
+                <h2>{{ total_borrowings }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <h3>Unique Books</h3>
+                <h2>{{ total_books }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Categories</h3>
+                <h2>{{ total_categories }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Returned</h3>
+                <h2>{{ total_returned }}</h2>
+            </div>
+
+        </section>
+
+        <!-- Loan Status -->
+        <div class="content-card">
+            <h2>Loan Status Analysis</h2>
+
+            <div class="summary-grid">
+
+                <div>
+                    <h3>Returned Books</h3>
+                    <h2>{{ total_returned }}</h2>
+                </div>
+
+                <div>
+                    <h3>Active Loans</h3>
+                    <h2>{{ total_active }}</h2>
+                </div>
+
+                <div>
+                    <h3>Overdue Loans</h3>
+                    <h2>{{ total_overdue }}</h2>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Late Return Analysis -->
+        <div class="content-card">
+            <h2>Late Return Analysis</h2>
+
+            <div class="summary-grid">
+
+                <div>
+                    <h3>Valid Returned Records</h3>
+                    <h2>{{ total_valid_returns }}</h2>
+                </div>
+
+                <div>
+                    <h3>Late Returns</h3>
+                    <h2>{{ total_late_returns }}</h2>
+                </div>
+
+                <div>
+                    <h3>On-Time Returns</h3>
+                    <h2>{{ on_time_returns }}</h2>
+                </div>
+
+                <div>
+                    <h3>Late Return Rate</h3>
+                    <h2>{{ late_return_rate }}%</h2>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Popular Books and Categories -->
+        <div class="content-card">
+            <h2>Most Popular Books and Categories</h2>
+
+            <p>
+                <strong>Most Borrowed Book:</strong>
+                {{ most_borrowed_book }}
+            </p>
+
+            <p>
+                <strong>Total Borrowings:</strong>
+                {{ highest_book_borrowings }}
+            </p>
+
+            <p>
+                <strong>Most Borrowed Category:</strong>
+                {{ most_borrowed_category }}
+            </p>
+
+            <p>
+                <strong>Category Borrowings:</strong>
+                {{ highest_category_borrowings }}
+            </p>
+        </div>
+
+        <!-- Monthly Analysis -->
+        <div class="content-card">
+            <h2>Monthly Circulation Analysis</h2>
+
+            <p>
+                <strong>Busiest Month:</strong>
+                {{ busiest_month }}
+            </p>
+
+            <p>
+                <strong>Borrowings During This Month:</strong>
+                {{ busiest_month_borrowings }}
+            </p>
+
+        </div>
+
+        <!-- Data Quality -->
+        <div class="content-card">
+            <h2>Data Quality Summary</h2>
+
+            <p>
+                <strong>Missing Return Dates:</strong>
+                {{ missing_return_dates }}
+            </p>
+
+            <p>
+                Missing return dates may represent books
+                that have not yet been returned.
+            </p>
+        </div>
+
+        <!-- Charts -->
+        <div class="content-card">
+            <h2>Visual Analytics</h2>
+
+            <div class="charts-grid">
+
+                <div>
+                    <h3>Monthly Circulation</h3>
+                    <img
+                        src="{{ url_for('static', filename='images/monthly_circulation.png') }}"
+                        alt="Monthly Circulation Chart"
+                        width="100%">
+                </div>
+
+                <div>
+                    <h3>Top 10 Borrowed Books</h3>
+                    <img
+                        src="{{ url_for('static', filename='images/top_10_books.png') }}"
+                        alt="Top 10 Books Chart"
+                        width="100%">
+                </div>
+
+                <div>
+                    <h3>Category Analysis</h3>
+                    <img
+                        src="{{ url_for('static', filename='images/category_analysis.png') }}"
+                        alt="Category Analysis Chart"
+                        width="100%">
+                </div>
+
+                <div>
+                    <h3>Loan Status Analysis</h3>
+                    <img
+                        src="{{ url_for('static', filename='images/loan_status_analysis.png') }}"
+                        alt="Loan Status Chart"
+                        width="100%">
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="dashboard-footer">
+            <p>Smart Library Analytics System | Academic Project</p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

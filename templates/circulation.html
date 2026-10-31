@@ -1,0 +1,66 @@
+<!-- Circulation page: we will build this later. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Circulation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="books-page">
+
+        <h1>Book Circulation</h1>
+
+        <p>
+            Track book issues, due dates and return status.
+        </p>
+
+        <a href="/">← Back to Dashboard</a>
+
+        <div class="books-table-container">
+
+            <table class="books-table">
+
+                <thead>
+                    <tr>
+                        <th>Loan ID</th>
+                        <th>Book Title</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Return Date</th>
+                        <th>Loan Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for item in circulation %}
+
+                    <tr>
+                        <td>{{ item.Loan_ID }}</td>
+                        <td>{{ item.Book_Title }}</td>
+                        <td>{{ item.Issue_Date }}</td>
+                        <td>{{ item.Due_Date }}</td>
+                        <td>{{ item.Return_Date }}</td>
+                        <td>{{ item.Loan_Status }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

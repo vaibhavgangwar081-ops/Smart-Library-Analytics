@@ -1,0 +1,60 @@
+<!-- Categories page: we will build this later. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Categories</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="books-page">
+
+        <h1>Book Categories</h1>
+
+        <p>
+            Explore category-wise library borrowing statistics.
+        </p>
+
+        <a href="/">← Back to Dashboard</a>
+
+        <div class="books-table-container">
+
+            <table class="books-table">
+
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Borrowings</th>
+                        <th>Unique Books</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for category in categories %}
+
+                    <tr>
+                        <td>{{ category.Category }}</td>
+                        <td>{{ category.Total_Borrowings }}</td>
+                        <td>{{ category.Unique_Books }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
