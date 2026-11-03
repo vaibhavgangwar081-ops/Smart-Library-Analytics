@@ -1,56 +1,264 @@
-<!-- Books page: we will build this later. -->
-
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Books</title>
+    <title>Smart Library | Books</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .books-page {
+            padding: 30px;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .filter-grid input,
+        .filter-grid select {
+            padding: 12px;
+            border: 1px solid #d5dbea;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .clear-btn {
+            padding: 12px 18px;
+            background: #5b50e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .books-table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            overflow-x: auto;
+        }
+
+        .books-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .books-table th,
+        .books-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e5e9f2;
+        }
+
+        .books-table th {
+            background: #eef3ff;
+            color: #293f86;
+        }
+
+        .books-table tbody tr:hover {
+            background: #f5f7ff;
+        }
+
+        #resultCount {
+            color: #5b50e8;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        @media(max-width: 750px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="books-page">
+<div class="books-page">
 
-        <h1>Library Books</h1>
-        <p>Explore all books available in the library dataset.</p>
+    <h1>📚 Library Books</h1>
+    <p>Explore and search books available in the library dataset.</p>
 
-        <a href="/">← Back to Dashboard</a>
+    <a href="/">← Back to Dashboard</a>
 
-        <div class="books-table-container">
+    <!-- Search and Filters -->
+    <section class="filter-section">
 
-            <table class="books-table">
+        <h2>🔍 Find Your Book</h2>
 
-                <thead>
-                    <tr>
-                        <th>Book ID</th>
-                        <th>Book Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Origin</th>
-                    </tr>
-                </thead>
+        <div class="filter-grid">
 
-                <tbody>
-                    {% for book in books %}
-                    <tr>
-                        <td>{{ book.Book_ID }}</td>
-                        <td>{{ book.Book_Title }}</td>
-                        <td>{{ book.Author }}</td>
-                        <td>{{ book.Category }}</td>
-                        <td>{{ book.Book_Origin }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by book title or author..."
+            >
 
-            </table>
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+            </select>
+
+            <select id="originFilter">
+                <option value="">All Origins</option>
+            </select>
+
+            <button class="clear-btn" onclick="clearFilters()">
+                Clear Filters
+            </button>
 
         </div>
 
+    </section>
+
+    <!-- Books Table -->
+    <div class="books-table-container">
+
+        <h2>Available Books</h2>
+
+        <p id="resultCount"></p>
+
+        <table class="books-table" id="booksTable">
+
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Origin</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.Book_ID }}</td>
+                    <td>{{ book.Book_Title }}</td>
+                    <td>{{ book.Author }}</td>
+                    <td>{{ book.Category }}</td>
+                    <td>{{ book.Book_Origin }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <p id="noResults" style="display:none; text-align:center; padding:20px;">
+            No matching books found.
+        </p>
+
     </div>
+
+</div>
+
+<script>
+
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const originFilter = document.getElementById("originFilter");
+    const table = document.getElementById("booksTable");
+
+    const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+    const resultCount = document.getElementById("resultCount");
+    const noResults = document.getElementById("noResults");
+
+    // Populate filters using available book records
+    const categories = new Set();
+    const origins = new Set();
+
+    rows.forEach(row => {
+        categories.add(row.cells[3].textContent.trim());
+        origins.add(row.cells[4].textContent.trim());
+    });
+
+    function addOptions(select, values) {
+        [...values].sort().forEach(value => {
+            const option = document.createElement("option");
+            option.value = value.toLowerCase();
+            option.textContent = value;
+            select.appendChild(option);
+        });
+    }
+
+    addOptions(categoryFilter, categories);
+    addOptions(originFilter, origins);
+
+    // Apply all filters
+    function filterBooks() {
+
+        const searchText = searchInput.value.toLowerCase().trim();
+        const selectedCategory = categoryFilter.value;
+        const selectedOrigin = originFilter.value;
+
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+
+            const title = row.cells[1].textContent.toLowerCase();
+            const author = row.cells[2].textContent.toLowerCase();
+            const category = row.cells[3].textContent.toLowerCase().trim();
+            const origin = row.cells[4].textContent.toLowerCase().trim();
+
+            const matchesSearch =
+                title.includes(searchText) ||
+                author.includes(searchText);
+
+            const matchesCategory =
+                !selectedCategory || category === selectedCategory;
+
+            const matchesOrigin =
+                !selectedOrigin || origin === selectedOrigin;
+
+            const showRow =
+                matchesSearch && matchesCategory && matchesOrigin;
+
+            row.style.display = showRow ? "" : "none";
+
+            if (showRow) {
+                visibleCount++;
+            }
+        });
+
+        resultCount.textContent =
+            "Showing " + visibleCount + " of " + rows.length + " books";
+
+        noResults.style.display =
+            visibleCount === 0 ? "block" : "none";
+    }
+
+    function clearFilters() {
+        searchInput.value = "";
+        categoryFilter.value = "";
+        originFilter.value = "";
+        filterBooks();
+    }
+
+    searchInput.addEventListener("input", filterBooks);
+    categoryFilter.addEventListener("change", filterBooks);
+    originFilter.addEventListener("change", filterBooks);
+
+    // Initial count
+    filterBooks();
+
+</script>
 
 </body>
 </html>

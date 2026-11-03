@@ -1,66 +1,302 @@
-<!-- Circulation page: we will build this later. -->
-
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Book Circulation</title>
+    <title>Smart Library | Circulation</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .circulation-page {
+            padding: 30px;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .filter-grid input,
+        .filter-grid select {
+            padding: 12px;
+            border: 1px solid #d5dbea;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .clear-btn {
+            padding: 12px 18px;
+            background: #5b50e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .table-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            overflow-x: auto;
+        }
+
+        .books-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .books-table th,
+        .books-table td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #e5e9f2;
+        }
+
+        .books-table th {
+            background: #eef3ff;
+            color: #293f86;
+        }
+
+        .books-table tbody tr:hover {
+            background: #f5f7ff;
+        }
+
+        .status {
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .Returned {
+            background: #d9f8e5;
+            color: #168044;
+        }
+
+        .Active {
+            background: #fff0c9;
+            color: #956300;
+        }
+
+        .Overdue {
+            background: #ffe0e0;
+            color: #c62828;
+        }
+
+        #resultCount {
+            color: #5b50e8;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        @media(max-width: 750px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <div class="books-page">
+<div class="circulation-page">
 
-        <h1>Book Circulation</h1>
+    <h1>📊 Book Circulation Management</h1>
 
-        <p>
-            Track book issues, due dates and return status.
-        </p>
+    <p>Track book issues, due dates and return status.</p>
 
-        <a href="/">← Back to Dashboard</a>
+    <a href="/">← Back to Dashboard</a>
 
-        <div class="books-table-container">
+    <!-- Search and Filters -->
+    <section class="filter-section">
 
-            <table class="books-table">
+        <h2>🔍 Search Circulation Records</h2>
 
-                <thead>
-                    <tr>
-                        <th>Loan ID</th>
-                        <th>Book Title</th>
-                        <th>Issue Date</th>
-                        <th>Due Date</th>
-                        <th>Return Date</th>
-                        <th>Loan Status</th>
-                    </tr>
-                </thead>
+        <div class="filter-grid">
 
-                <tbody>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search Loan ID or Book Title..."
+            >
 
-                    {% for item in circulation %}
+            <select id="statusFilter">
+                <option value="">All Loan Status</option>
+                <option value="returned">Returned</option>
+                <option value="active">Active</option>
+                <option value="overdue">Overdue</option>
+            </select>
 
-                    <tr>
-                        <td>{{ item.Loan_ID }}</td>
-                        <td>{{ item.Book_Title }}</td>
-                        <td>{{ item.Issue_Date }}</td>
-                        <td>{{ item.Due_Date }}</td>
-                        <td>{{ item.Return_Date }}</td>
-                        <td>{{ item.Loan_Status }}</td>
-                    </tr>
+            <select id="sortFilter">
+                <option value="newest">Latest Issue Date</option>
+                <option value="oldest">Oldest Issue Date</option>
+            </select>
 
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
+            <button class="clear-btn" onclick="clearFilters()">
+                Clear Filters
+            </button>
 
         </div>
 
-    </div>
+    </section>
+
+    <!-- Circulation Table -->
+    <section class="table-card">
+
+        <h2>Circulation Records</h2>
+
+        <p id="resultCount"></p>
+
+        <table class="books-table" id="circulationTable">
+
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Book Title</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                    <th>Loan Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for item in circulation %}
+
+                <tr>
+                    <td>{{ item.Loan_ID }}</td>
+                    <td>{{ item.Book_Title }}</td>
+                    <td>{{ item.Issue_Date }}</td>
+                    <td>{{ item.Due_Date }}</td>
+                    <td>{{ item.Return_Date }}</td>
+                    <td>
+                        <span class="status {{ item.Loan_Status }}">
+                            {{ item.Loan_Status }}
+                        </span>
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <p id="noResults"
+           style="display:none; text-align:center; padding:20px;">
+            No matching circulation records found.
+        </p>
+
+    </section>
+
+</div>
+
+<script>
+
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const sortFilter = document.getElementById("sortFilter");
+
+    const table = document.getElementById("circulationTable");
+    const tbody = table.querySelector("tbody");
+
+    const resultCount = document.getElementById("resultCount");
+    const noResults = document.getElementById("noResults");
+
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    function filterRecords() {
+
+        const searchText = searchInput.value.toLowerCase().trim();
+        const selectedStatus = statusFilter.value;
+
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+
+            const loanId = row.cells[0].textContent.toLowerCase();
+            const bookTitle = row.cells[1].textContent.toLowerCase();
+            const status = row.cells[5].textContent.toLowerCase().trim();
+
+            const matchesSearch =
+                loanId.includes(searchText) ||
+                bookTitle.includes(searchText);
+
+            const matchesStatus =
+                !selectedStatus || status === selectedStatus;
+
+            const showRow = matchesSearch && matchesStatus;
+
+            row.style.display = showRow ? "" : "none";
+
+            if (showRow) {
+                visibleCount++;
+            }
+
+        });
+
+        resultCount.textContent =
+            "Showing " + visibleCount + " of " + rows.length + " records";
+
+        noResults.style.display =
+            visibleCount === 0 ? "block" : "none";
+    }
+
+    function sortRecords() {
+
+        const sortOrder = sortFilter.value;
+
+        const sortedRows = [...rows].sort((a, b) => {
+
+            const dateA = new Date(a.cells[2].textContent.trim());
+            const dateB = new Date(b.cells[2].textContent.trim());
+
+            if (sortOrder === "newest") {
+                return dateB - dateA;
+            }
+
+            return dateA - dateB;
+
+        });
+
+        sortedRows.forEach(row => tbody.appendChild(row));
+
+        filterRecords();
+    }
+
+    function clearFilters() {
+
+        searchInput.value = "";
+        statusFilter.value = "";
+        sortFilter.value = "newest";
+
+        sortRecords();
+    }
+
+    searchInput.addEventListener("input", filterRecords);
+    statusFilter.addEventListener("change", filterRecords);
+    sortFilter.addEventListener("change", sortRecords);
+
+    // Initial sorting and count
+    sortRecords();
+
+</script>
 
 </body>
 </html>

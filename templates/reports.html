@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,46 @@
     <title>Library Analytics Reports</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .download-section {
+            background: linear-gradient(120deg, #5b50e8, #3478eb);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+        }
+
+        .download-section h2 {
+            margin-top: 0;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: white;
+            color: #5148d8;
+            padding: 13px 24px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 12px;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #e9eaff;
+            transform: translateY(-2px);
+        }
+
+        .method-note {
+            background: #f0f4ff;
+            padding: 18px;
+            border-left: 5px solid #5b50e8;
+            border-radius: 8px;
+            margin-top: 20px;
+            line-height: 1.7;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,6 +78,20 @@
                 A detailed overview of library borrowing,
                 book circulation and return performance.
             </p>
+        </section>
+
+        <!-- CSV Download -->
+        <section class="download-section">
+            <h2>📥 Download Analytics Report</h2>
+
+            <p>
+                Download the library borrowing and circulation
+                analysis as a CSV file for further study and reporting.
+            </p>
+
+            <a href="/download-report" class="download-btn">
+                ⬇ Download CSV Report
+            </a>
         </section>
 
         <!-- Basic Statistics -->
@@ -117,6 +170,14 @@
                 </div>
 
             </div>
+
+            <div class="method-note">
+                <strong>Calculation Method:</strong>
+                Late Return Rate = (Late Returned Books /
+                Valid Returned Records) × 100.
+                Active and overdue unreturned loans are excluded
+                from this calculation.
+            </div>
         </div>
 
         <!-- Popular Books and Categories -->
@@ -157,7 +218,6 @@
                 <strong>Borrowings During This Month:</strong>
                 {{ busiest_month_borrowings }}
             </p>
-
         </div>
 
         <!-- Data Quality -->
@@ -172,6 +232,11 @@
             <p>
                 Missing return dates may represent books
                 that have not yet been returned.
+            </p>
+
+            <p>
+                <strong>Dataset:</strong>
+                200 synthetic library loan records.
             </p>
         </div>
 
@@ -217,12 +282,6 @@
         </div>
 
         <footer class="dashboard-footer">
-            <p>Smart Library Analytics System | Academic Project</p>
-        </footer>
-
-    </main>
-
-</div>
-
-</body>
-</html>
+            <p>
+                &copy; 2026 Smart Library Analytics. All rights reserved.
+            </p>

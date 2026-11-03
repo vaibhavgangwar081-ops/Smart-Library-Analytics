@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Library Insights</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>📚 SmartLib</h2>
+
+        <nav>
+            <a href="/">🏠 Dashboard</a>
+            <a href="/books">📖 Books</a>
+            <a href="/categories">📂 Categories</a>
+            <a href="/circulation">📊 Circulation</a>
+            <a href="/reports">📄 Reports</a>
+            <a href="/insights" class="active">💡 Smart Insights</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <h1>Smart Library Insights 💡</h1>
+        </div>
+
+        <section class="welcome">
+            <h2>Library Intelligence Center</h2>
+            <p>
+                Discover borrowing patterns and useful
+                recommendations based on library data.
+            </p>
+        </section>
+
+        <section class="content-card">
+            <h2>📈 Data-Driven Insights</h2>
+
+            <div class="summary-grid">
+
+                {% for item in insights %}
+
+                <div class="stat-card">
+                    <h3>{{ item.title }}</h3>
+
+                    <h2>{{ item.value }}</h2>
+
+                    <p>{{ item.description }}</p>
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2>🎯 Library Management Recommendations</h2>
+
+            <div class="stat-card">
+                <h3>Book Collection</h3>
+                <p>
+                    Review the demand for popular categories
+                    when planning future book purchases.
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Return Management</h3>
+                <p>
+                    Monitor late returns and consider sending
+                    timely reminders before due dates.
+                </p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Library Planning</h3>
+                <p>
+                    Use monthly circulation trends to support
+                    collection and service planning.
+                </p>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer">
+            <p>Smart Library Analytics System | Smart Insights</p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

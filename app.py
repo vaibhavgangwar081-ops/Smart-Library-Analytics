@@ -290,7 +290,97 @@ def reports():
         missing_return_dates=missing_return_dates
     )
 
+# =====================================
+# SMART LIBRARY INSIGHTS
+# =====================================
 
+@app.route("/insights")
+def insights():
+
+    data = pd.read_csv(data_path)
+
+    insights_list = []
+
+    # 1. Most popular category
+    category_count = data["Category"].value_counts()
+
+    if not category_count.empty:
+        popular_category = category_count.idxmax()
+        popular_count = int(category_count.max())
+
+        insights_list.append({
+            "title": "Most Popular Category",
+            "value": popular_category,
+            "description": (
+                f"{popular_category} has the highest borrowing "
+                f"with {popular_count} recorded loans."
+            )
+        })
+
+    # 2. Most borrowed book
+    book_count = data["Book_Title"].value_counts()
+
+    if not book_count.empty:
+        popular_book = book_count.idxmax()
+        book_loans = int(book_count.max())
+
+        insights_list.append({
+            "title": "Most Borrowed Book",
+            "value": popular_book,
+            "description": (
+                f"This book has been borrowed {book_loans} times."
+            )
+        })
+
+    # 3. Late return analysis
+    data["Due_Date"] = pd.to_datetime(
+        data["Due_Date"], errors="coerce"
+    )
+
+    data["Return_Date"] = pd.to_datetime(
+        data["Return_Date"], errors="coerce"
+    )
+
+    valid_returns = data[
+        (data["Loan_Status"] == "Returned") &
+        data["Due_Date"].notna() &
+        data["Return_Date"].notna()
+    ]
+
+    late_returns = valid_returns[
+        valid_returns["Return_Date"] > valid_returns["Due_Date"]
+    ]
+
+    late_rate = (
+        len(late_returns) / len(valid_returns) * 100
+        if len(valid_returns) > 0 else 0
+    )
+
+    insights_list.append({
+        "title": "Late Return Rate",
+        "value": f"{late_rate:.1f}%",
+        "description": (
+            "Monitor return reminders and due-date awareness "
+            "to improve timely book returns."
+        )
+    })
+
+    # 4. Library collection suggestion
+    if not category_count.empty:
+        insights_list.append({
+            "title": "Collection Planning",
+            "value": popular_category,
+            "description": (
+                f"Consider reviewing the availability of "
+                f"{popular_category} books because this category "
+                f"has the highest borrowing demand."
+            )
+        })
+
+    return render_template(
+        "insights.html",
+        insights=insights_list
+    )
 
 # =====================================
 # DOWNLOAD ANALYTICS REPORT
