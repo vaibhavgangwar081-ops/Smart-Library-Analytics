@@ -4,4 +4,8 @@ venv/
 .env
 .idea/
 .vscode/
-.DS_Store
+.DS_Storelibrary.db
+venv/
+__pycache__/
+*.pyc
+.env
