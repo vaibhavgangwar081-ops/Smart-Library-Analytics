@@ -1,4 +1,3 @@
-<!-- Categories page: we will build this later. -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,55 +5,456 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Library Categories</title>
+    <title>SmartLib | Categories</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f3f6fc;
+        }
+
+        .categories-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .categories-layout .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 258px;
+            min-width: 258px;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .categories-main {
+            margin-left: 258px;
+            width: calc(100% - 258px);
+            min-width: 0;
+            min-height: 100vh;
+            padding: 35px;
+        }
+
+        /* PAGE HEADER */
+        .categories-heading {
+            margin-bottom: 28px;
+        }
+
+        .categories-heading h1 {
+            font-size: 30px;
+            letter-spacing: -0.8px;
+            margin-top: 7px;
+            color: #17233c;
+        }
+
+        .categories-heading p {
+            color: #718096;
+            font-size: 13px;
+            margin: 7px 0 10px;
+        }
+
+        .categories-heading a {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* OVERVIEW CARDS */
+        .category-overview {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .category-stat {
+            background: white;
+            border: 1px solid #e6ecf5;
+            border-radius: 14px;
+            padding: 23px;
+            box-shadow: 0 5px 22px rgba(25, 45, 85, 0.045);
+            transition: 0.25s ease;
+        }
+
+        .category-stat:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(25, 45, 85, 0.09);
+        }
+
+        .category-stat span {
+            color: #718096;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+
+        .category-stat h2 {
+            font-size: 30px;
+            color: #17233c;
+            margin-top: 9px;
+        }
+
+        /* TABLE CARD */
+        .categories-table-card {
+            background: white;
+            border: 1px solid #e6ecf5;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 5px 22px rgba(25, 45, 85, 0.045);
+            overflow: hidden;
+        }
+
+        .categories-table-card h2 {
+            font-size: 19px;
+            margin: 5px 0 17px;
+            color: #17233c;
+        }
+
+        .category-table-scroll {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        .categories-table {
+            width: 100%;
+            min-width: 500px;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .categories-table th,
+        .categories-table td {
+            text-align: left;
+            padding: 16px 18px;
+            border-bottom: 1px solid #edf1f7;
+            font-size: 13px;
+        }
+
+        .categories-table th {
+            background: #eaf1ff;
+            color: #294a83;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            position: sticky;
+            top: 0;
+        }
+
+        /* ALTERNATE ROW COLORS */
+        .categories-table tbody tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .categories-table tbody tr:nth-child(even) {
+            background: #f3f7ff;
+        }
+
+        .categories-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .categories-table tbody tr:hover {
+            background: #e3edff;
+        }
+
+        .category-name {
+            font-weight: 700;
+            color: #263c61;
+        }
+
+        .category-number {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .categories-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* FOOTER */
+        .categories-main .dashboard-footer {
+            margin-top: 30px;
+        }
+
+        /* TABLET */
+        @media (max-width: 1000px) {
+            .categories-main {
+                padding: 25px;
+            }
+
+            .categories-layout .sidebar {
+                width: 220px;
+                min-width: 220px;
+            }
+
+            .categories-main {
+                margin-left: 220px;
+                width: calc(100% - 220px);
+            }
+        }
+
+        /* PHONE */
+        @media (max-width: 650px) {
+            .categories-layout {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .categories-layout .sidebar {
+                position: relative;
+                width: 100%;
+                min-width: 0;
+                height: auto;
+                min-height: auto;
+                overflow: visible;
+            }
+
+            .categories-main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 15px;
+            }
+
+            .categories-layout .sidebar-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .categories-layout .sidebar-nav a {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .categories-layout .nav-section-label {
+                display: block;
+            }
+
+            .categories-layout .sidebar-bottom {
+                display: none;
+            }
+
+            .category-overview {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .category-stat {
+                padding: 19px;
+            }
+
+            .categories-table-card {
+                padding: 16px;
+            }
+
+            .categories-heading h1 {
+                font-size: 25px;
+            }
+
+            .categories-heading p {
+                font-size: 12px;
+            }
+
+            .categories-table th,
+            .categories-table td {
+                padding: 13px;
+                font-size: 12px;
+            }
+        }
+
+        /* SMALL PHONES */
+        @media (max-width: 380px) {
+            .categories-main {
+                padding: 18px 11px;
+            }
+
+            .categories-table-card {
+                padding: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="books-page">
+<div class="dashboard categories-layout">
 
-        <h1>Book Categories</h1>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-        <p>
-            Explore category-wise library borrowing statistics.
-        </p>
-
-        <a href="/">← Back to Dashboard</a>
-
-        <div class="books-table-container">
-
-            <table class="books-table">
-
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Total Borrowings</th>
-                        <th>Unique Books</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for category in categories %}
-
-                    <tr>
-                        <td>{{ category.Category }}</td>
-                        <td>{{ category.Total_Borrowings }}</td>
-                        <td>{{ category.Unique_Books }}</td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>SmartLib</h2>
+                <span>ANALYTICS PLATFORM</span>
+            </div>
         </div>
 
-    </div>
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{{ url_for('index') }}">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('books') }}">
+                <span class="nav-icon">▤</span>
+                Books
+            </a>
+
+            <a href="{{ url_for('categories') }}" class="active">
+                <span class="nav-icon">▧</span>
+                Categories
+            </a>
+
+            <a href="{{ url_for('circulation') }}">
+                <span class="nav-icon">⇄</span>
+                Circulation
+            </a>
+
+            <div class="nav-label nav-section-label">INSIGHTS</div>
+
+            <a href="{{ url_for('reports') }}">
+                <span class="nav-icon">▥</span>
+                Reports
+            </a>
+
+            <a href="{{ url_for('insights') }}">
+                <span class="nav-icon">✧</span>
+                Smart Insights
+            </a>
+
+            <!-- NEW: BOOKS DETAILS -->
+            <a href="{{ url_for('inventory') }}">
+                <span class="nav-icon">▣</span>
+                Books Details
+            </a>
+
+            <!-- ADMIN PANEL -->
+            <a href="{{ url_for('login') }}">
+                <span class="nav-icon">⚙</span>
+                Admin Panel
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                Analytics system active
+            </div>
+
+            <p>SmartLib Analytics</p>
+            <small>Project Edition 2026</small>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="categories-main">
+
+        <header class="categories-heading">
+            <span class="eyebrow">LIBRARY / CATEGORIES</span>
+            <h1>Book Categories</h1>
+            <p>Explore library borrowing statistics category-wise.</p>
+            <a href="{{ url_for('index') }}">← Back to Dashboard</a>
+        </header>
+
+
+        <!-- CATEGORY OVERVIEW -->
+        <section class="category-overview">
+
+            <article class="category-stat">
+                <span>TOTAL CATEGORIES</span>
+                <h2>{{ categories|length }}</h2>
+            </article>
+
+            <article class="category-stat">
+                <span>TOTAL CATEGORY BORROWINGS</span>
+                <h2>{{ categories|sum(attribute='Total_Borrowings') }}</h2>
+            </article>
+
+        </section>
+
+
+        <!-- CATEGORY TABLE -->
+        <section class="categories-table-card">
+
+            <span class="eyebrow">COLLECTION BREAKDOWN</span>
+
+            <h2>Category-wise Borrowing</h2>
+
+            <div class="category-table-scroll">
+
+                <table class="categories-table">
+
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Total Borrowings</th>
+                            <th>Unique Books</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for category in categories %}
+
+                        <tr>
+                            <td class="category-name">
+                                {{ category.Category }}
+                            </td>
+
+                            <td class="category-number">
+                                {{ category.Total_Borrowings }}
+                            </td>
+
+                            <td>
+                                {{ category.Unique_Books }}
+                            </td>
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="3">
+                                No category records found.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+            <p>© 2026 SmartLib Analytics</p>
+            <span>Data-driven library insights</span>
+        </footer>
+
+    </main>
+
+</div>
 
 </body>
 </html>

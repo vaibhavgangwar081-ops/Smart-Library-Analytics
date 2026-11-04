@@ -1,89 +1,197 @@
-<<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Library | Circulation</title>
+    <title>SmartLib | Circulation</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
     <style>
-        .circulation-page {
-            padding: 30px;
+        * {
+            box-sizing: border-box;
         }
 
+        body {
+            margin: 0;
+            background: #f3f6fc;
+        }
+
+        .circulation-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .circulation-layout .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 258px;
+            min-width: 258px;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .circulation-main {
+            margin-left: 258px;
+            width: calc(100% - 258px);
+            min-height: 100vh;
+            padding: 35px;
+        }
+
+        /* PAGE HEADING */
+        .circulation-heading {
+            margin-bottom: 28px;
+        }
+
+        .circulation-heading h1 {
+            font-size: 30px;
+            letter-spacing: -0.8px;
+            margin-top: 5px;
+            color: #17233c;
+        }
+
+        .circulation-heading p {
+            color: #718096;
+            font-size: 13px;
+            margin: 7px 0 10px;
+        }
+
+        .circulation-heading a {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* FILTER SECTION */
         .filter-section {
             background: white;
-            padding: 22px;
+            padding: 25px;
+            border: 1px solid #e6ecf5;
             border-radius: 14px;
-            margin: 25px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 22px rgba(25, 45, 85, 0.045);
+        }
+
+        .filter-section h2 {
+            font-size: 19px;
+            color: #17233c;
         }
 
         .filter-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr auto;
             gap: 12px;
-            margin-top: 15px;
+            margin-top: 18px;
         }
 
         .filter-grid input,
         .filter-grid select {
-            padding: 12px;
-            border: 1px solid #d5dbea;
-            border-radius: 8px;
+            min-width: 0;
             width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dce4f0;
+            border-radius: 9px;
+            background: white;
+            color: #26354d;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .filter-grid input:focus,
+        .filter-grid select:focus {
+            border-color: #4388ed;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .clear-btn {
             padding: 12px 18px;
-            background: #5b50e8;
+            background: #2563eb;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 9px;
             cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s ease;
         }
 
+        .clear-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* TABLE */
         .table-card {
             background: white;
-            padding: 22px;
+            padding: 25px;
+            border: 1px solid #e6ecf5;
             border-radius: 14px;
+            box-shadow: 0 5px 22px rgba(25, 45, 85, 0.045);
+            overflow: hidden;
+        }
+
+        .table-card h2 {
+            font-size: 19px;
+            margin: 5px 0 17px;
+            color: #17233c;
+        }
+
+        .table-scroll {
+            width: 100%;
             overflow-x: auto;
         }
 
         .books-table {
             width: 100%;
+            min-width: 800px;
             border-collapse: collapse;
         }
 
         .books-table th,
         .books-table td {
-            padding: 13px;
+            padding: 14px 15px;
             text-align: left;
-            border-bottom: 1px solid #e5e9f2;
+            border-bottom: 1px solid #edf1f7;
+            font-size: 12px;
         }
 
         .books-table th {
-            background: #eef3ff;
-            color: #293f86;
+            background: #f0f5ff;
+            color: #294a83;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .books-table tbody tr {
+            transition: background 0.2s ease;
         }
 
         .books-table tbody tr:hover {
-            background: #f5f7ff;
+            background: #f5f8ff;
         }
 
+        /* STATUS BADGES */
         .status {
+            display: inline-block;
             padding: 6px 11px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 11px;
+            font-weight: 700;
         }
 
         .Returned {
-            background: #d9f8e5;
+            background: #dcfce7;
             color: #168044;
         }
 
@@ -98,114 +206,279 @@
         }
 
         #resultCount {
-            color: #5b50e8;
-            font-weight: bold;
-            margin-bottom: 15px;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 17px;
         }
 
-        @media(max-width: 750px) {
+        #noResults {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #718096;
+            font-size: 13px;
+        }
+
+        /* TABLET */
+        @media(max-width: 1000px) {
+            .filter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* PHONE */
+        @media(max-width: 650px) {
+            .circulation-layout {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .circulation-layout .sidebar {
+                position: relative;
+                width: 100%;
+                min-width: 0;
+                height: auto;
+                overflow: visible;
+            }
+
+            .circulation-main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 15px;
+            }
+
             .filter-grid {
                 grid-template-columns: 1fr;
             }
+
+            .filter-section,
+            .table-card {
+                padding: 17px;
+            }
+
+            .circulation-heading h1 {
+                font-size: 25px;
+            }
+
+            .circulation-layout .sidebar-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .circulation-layout .sidebar-nav a {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .circulation-layout .nav-section-label {
+                display: block;
+            }
+
+            .circulation-layout .sidebar-bottom {
+                display: none;
+            }
         }
     </style>
-
 </head>
 
 <body>
 
-<div class="circulation-page">
+<div class="dashboard circulation-layout">
 
-    <h1>📊 Book Circulation Management</h1>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-    <p>Track book issues, due dates and return status.</p>
-
-    <a href="/">← Back to Dashboard</a>
-
-    <!-- Search and Filters -->
-    <section class="filter-section">
-
-        <h2>🔍 Search Circulation Records</h2>
-
-        <div class="filter-grid">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search Loan ID or Book Title..."
-            >
-
-            <select id="statusFilter">
-                <option value="">All Loan Status</option>
-                <option value="returned">Returned</option>
-                <option value="active">Active</option>
-                <option value="overdue">Overdue</option>
-            </select>
-
-            <select id="sortFilter">
-                <option value="newest">Latest Issue Date</option>
-                <option value="oldest">Oldest Issue Date</option>
-            </select>
-
-            <button class="clear-btn" onclick="clearFilters()">
-                Clear Filters
-            </button>
-
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>SmartLib</h2>
+                <span>ANALYTICS PLATFORM</span>
+            </div>
         </div>
 
-    </section>
+        <div class="nav-label">WORKSPACE</div>
 
-    <!-- Circulation Table -->
-    <section class="table-card">
+        <nav class="sidebar-nav">
 
-        <h2>Circulation Records</h2>
+            <a href="{{ url_for('index') }}">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
 
-        <p id="resultCount"></p>
+            <a href="{{ url_for('books') }}">
+                <span class="nav-icon">▤</span>
+                Books
+            </a>
 
-        <table class="books-table" id="circulationTable">
+            <a href="{{ url_for('categories') }}">
+                <span class="nav-icon">▧</span>
+                Categories
+            </a>
 
-            <thead>
-                <tr>
-                    <th>Loan ID</th>
-                    <th>Book Title</th>
-                    <th>Issue Date</th>
-                    <th>Due Date</th>
-                    <th>Return Date</th>
-                    <th>Loan Status</th>
-                </tr>
-            </thead>
+            <a href="{{ url_for('circulation') }}" class="active">
+                <span class="nav-icon">⇄</span>
+                Circulation
+            </a>
 
-            <tbody>
+            <div class="nav-label nav-section-label">INSIGHTS</div>
 
-                {% for item in circulation %}
+            <a href="{{ url_for('reports') }}">
+                <span class="nav-icon">▥</span>
+                Reports
+            </a>
 
-                <tr>
-                    <td>{{ item.Loan_ID }}</td>
-                    <td>{{ item.Book_Title }}</td>
-                    <td>{{ item.Issue_Date }}</td>
-                    <td>{{ item.Due_Date }}</td>
-                    <td>{{ item.Return_Date }}</td>
-                    <td>
-                        <span class="status {{ item.Loan_Status }}">
-                            {{ item.Loan_Status }}
-                        </span>
-                    </td>
-                </tr>
+            <a href="{{ url_for('insights') }}">
+                <span class="nav-icon">✧</span>
+                Smart Insights
+            </a>
 
-                {% endfor %}
+            <!-- BOOKS DETAILS -->
+            <a href="{{ url_for('inventory') }}">
+                <span class="nav-icon">▣</span>
+                Books Details
+            </a>
 
-            </tbody>
+            <!-- ADMIN PANEL -->
+            <a href="{{ url_for('login') }}">
+                <span class="nav-icon">⚙</span>
+                Admin Panel
+            </a>
 
-        </table>
+        </nav>
 
-        <p id="noResults"
-           style="display:none; text-align:center; padding:20px;">
-            No matching circulation records found.
-        </p>
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                Analytics system active
+            </div>
 
-    </section>
+            <p>SmartLib Analytics</p>
+            <small>Project Edition 2026</small>
+        </div>
+
+    </aside>
+
+
+    <!-- CIRCULATION MAIN CONTENT -->
+    <main class="circulation-main">
+
+        <!-- PAGE HEADING -->
+        <header class="circulation-heading">
+            <span class="eyebrow">LIBRARY / TRANSACTIONS</span>
+            <h1>Book Circulation</h1>
+            <p>Track issued books, returns and overdue transactions.</p>
+            <a href="{{ url_for('index') }}">← Back to Dashboard</a>
+        </header>
+
+
+        <!-- SEARCH AND FILTERS -->
+        <section class="filter-section">
+
+            <h2>Search Circulation Records</h2>
+
+            <div class="filter-grid">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search Loan ID or Book Title..."
+                >
+
+                <select id="statusFilter">
+                    <option value="">All Loan Status</option>
+                    <option value="returned">Returned</option>
+                    <option value="active">Active</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+
+                <select id="sortFilter">
+                    <option value="newest">Latest Issue Date</option>
+                    <option value="oldest">Oldest Issue Date</option>
+                </select>
+
+                <button class="clear-btn" onclick="clearFilters()">
+                    Clear Filters
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CIRCULATION TABLE -->
+        <section class="table-card">
+
+            <span class="eyebrow">TRANSACTION OVERVIEW</span>
+
+            <h2>Circulation Records</h2>
+
+            <p id="resultCount"></p>
+
+            <div class="table-scroll">
+
+                <table class="books-table" id="circulationTable">
+
+                    <thead>
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>Book Title</th>
+                            <th>Issue Date</th>
+                            <th>Due Date</th>
+                            <th>Return Date</th>
+                            <th>Loan Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in circulation %}
+
+                        <tr>
+                            <td>{{ item.Loan_ID }}</td>
+                            <td>{{ item.Book_Title }}</td>
+                            <td>{{ item.Issue_Date }}</td>
+                            <td>{{ item.Due_Date }}</td>
+                            <td>{{ item.Return_Date if item.Return_Date else '-' }}</td>
+
+                            <td>
+                                <span class="status {{ item.Loan_Status }}">
+                                    {{ item.Loan_Status }}
+                                </span>
+                            </td>
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="6">No circulation records found.</td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p id="noResults">
+                No matching circulation records found.
+            </p>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+            <p>© 2026 SmartLib Analytics</p>
+            <span>Data-driven library insights</span>
+        </footer>
+
+    </main>
 
 </div>
+
 
 <script>
 
@@ -219,7 +492,8 @@
     const resultCount = document.getElementById("resultCount");
     const noResults = document.getElementById("noResults");
 
-    const rows = Array.from(tbody.querySelectorAll("tr"));
+    const rows = Array.from(tbody.querySelectorAll("tr"))
+        .filter(row => row.cells.length === 6);
 
     function filterRecords() {
 
@@ -293,7 +567,7 @@
     statusFilter.addEventListener("change", filterRecords);
     sortFilter.addEventListener("change", sortRecords);
 
-    // Initial sorting and count
+    // Initial sorting
     sortRecords();
 
 </script>

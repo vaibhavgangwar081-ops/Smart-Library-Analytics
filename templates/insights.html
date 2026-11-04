@@ -1,101 +1,324 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Library Insights</title>
+    <title>SmartLib | Smart Library Insights</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .insights-main {
+            margin-left: 258px;
+            padding: 35px;
+            width: calc(100% - 258px);
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .insights-section {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 25px 0;
+            box-shadow: 0 5px 22px rgba(20, 30, 70, 0.06);
+        }
+
+        .insights-section h2 {
+            color: #19234a;
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        .insight-card {
+            background: #f5f7ff;
+            padding: 22px;
+            border-radius: 13px;
+            border-left: 4px solid #5145cd;
+        }
+
+        .insight-card h3 {
+            color: #263b83;
+            margin-top: 0;
+        }
+
+        .insight-card h2 {
+            color: #5145cd;
+            margin: 10px 0;
+        }
+
+        .insight-card p {
+            color: #626b80;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .recommendation-card {
+            background: #f5f7ff;
+            padding: 22px;
+            border-radius: 13px;
+            border-left: 4px solid #3478eb;
+        }
+
+        .recommendation-card h3 {
+            color: #263b83;
+            margin-top: 0;
+        }
+
+        .recommendation-card p {
+            color: #626b80;
+            line-height: 1.7;
+        }
+
+        @media(max-width: 850px) {
+            .insights-main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="dashboard">
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-    <aside class="sidebar">
-        <h2>📚 SmartLib</h2>
+    <div class="brand">
+        <div class="brand-icon">S</div>
+        <div>
+            <h2>SmartLib</h2>
+            <span>ANALYTICS PLATFORM</span>
+        </div>
+    </div>
 
-        <nav>
-            <a href="/">🏠 Dashboard</a>
-            <a href="/books">📖 Books</a>
-            <a href="/categories">📂 Categories</a>
-            <a href="/circulation">📊 Circulation</a>
-            <a href="/reports">📄 Reports</a>
-            <a href="/insights" class="active">💡 Smart Insights</a>
-        </nav>
-    </aside>
+    <div class="nav-label">WORKSPACE</div>
 
-    <main class="main-content">
+    <nav class="sidebar-nav">
 
-        <div class="topbar">
+        <a href="{{ url_for('index') }}">
+            <span class="nav-icon">🏠</span>
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('books') }}">
+            <span class="nav-icon">📖</span>
+            Books
+        </a>
+
+        <a href="{{ url_for('categories') }}">
+            <span class="nav-icon">📂</span>
+            Categories
+        </a>
+
+        <a href="{{ url_for('circulation') }}">
+            <span class="nav-icon">📊</span>
+            Circulation
+        </a>
+
+        <div class="nav-label nav-section-label">INSIGHTS</div>
+
+        <a href="{{ url_for('reports') }}">
+            <span class="nav-icon">📄</span>
+            Reports
+        </a>
+
+        <a href="{{ url_for('insights') }}" class="active">
+            <span class="nav-icon">💡</span>
+            Smart Insights
+        </a>
+
+        <!-- NEW: BOOKS DETAILS -->
+        <a href="{{ url_for('inventory') }}">
+            <span class="nav-icon">▣</span>
+            Books Details
+        </a>
+
+        <a href="/admin">
+            <span class="nav-icon">⚙️</span>
+            Admin Panel
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="sidebar-status">
+            <span class="status-dot"></span>
+            Analytics system active
+        </div>
+        <p>SmartLib Analytics</p>
+        <small>Project Edition 2026</small>
+    </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="insights-main">
+
+    <!-- PAGE HEADER -->
+    <div class="topbar">
+        <div>
+            <span class="eyebrow">ANALYTICS / INTELLIGENCE</span>
             <h1>Smart Library Insights 💡</h1>
         </div>
+    </div>
 
-        <section class="welcome">
+
+    <!-- WELCOME SECTION -->
+    <section class="welcome">
+
+        <div>
+            <span class="welcome-tag">SMART LIBRARY ANALYTICS</span>
+
             <h2>Library Intelligence Center</h2>
+
             <p>
                 Discover borrowing patterns and useful
                 recommendations based on library data.
             </p>
-        </section>
+        </div>
 
-        <section class="content-card">
-            <h2>📈 Data-Driven Insights</h2>
+    </section>
 
-            <div class="summary-grid">
 
-                {% for item in insights %}
+    <!-- DATA-DRIVEN INSIGHTS -->
+    <section class="insights-section">
 
-                <div class="stat-card">
-                    <h3>{{ item.title }}</h3>
+        <h2>📈 Data-Driven Insights</h2>
 
-                    <h2>{{ item.value }}</h2>
+        <div class="summary-grid">
 
-                    <p>{{ item.description }}</p>
-                </div>
+            {% for item in insights %}
 
-                {% endfor %}
+            <div class="insight-card">
+
+                <h3>{{ item.title }}</h3>
+
+                <h2>{{ item.value }}</h2>
+
+                <p>{{ item.description }}</p>
 
             </div>
-        </section>
 
-        <section class="content-card">
-            <h2>🎯 Library Management Recommendations</h2>
+            {% else %}
 
-            <div class="stat-card">
-                <h3>Book Collection</h3>
+            <p>No insights are available yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- MANAGEMENT RECOMMENDATIONS -->
+    <section class="insights-section">
+
+        <h2>🎯 Library Management Recommendations</h2>
+
+        <div class="recommendation-grid">
+
+            <div class="recommendation-card">
+
+                <h3>📚 Book Collection</h3>
+
                 <p>
                     Review the demand for popular categories
                     when planning future book purchases.
                 </p>
+
             </div>
 
-            <div class="stat-card">
-                <h3>Return Management</h3>
+
+            <div class="recommendation-card">
+
+                <h3>📅 Return Management</h3>
+
                 <p>
                     Monitor late returns and consider sending
                     timely reminders before due dates.
                 </p>
+
             </div>
 
-            <div class="stat-card">
-                <h3>Library Planning</h3>
+
+            <div class="recommendation-card">
+
+                <h3>📊 Library Planning</h3>
+
                 <p>
                     Use monthly circulation trends to support
                     collection and service planning.
                 </p>
+
             </div>
-        </section>
 
-        <footer class="dashboard-footer">
-            <p>Smart Library Analytics System | Smart Insights</p>
-        </footer>
+        </div>
 
-    </main>
+    </section>
 
-</div>
+
+    <!-- QUICK ACCESS -->
+    <section class="insights-section">
+
+        <h2>⚡ Quick Access</h2>
+
+        <div class="recommendation-grid">
+
+            <a href="{{ url_for('inventory') }}"
+               class="recommendation-card"
+               style="text-decoration: none;">
+
+                <h3>▣ Books Details</h3>
+
+                <p>
+                    Check total books, available copies
+                    and currently issued copies.
+                </p>
+
+            </a>
+
+            <a href="{{ url_for('reports') }}"
+               class="recommendation-card"
+               style="text-decoration: none;">
+
+                <h3>📄 Analytics Reports</h3>
+
+                <p>
+                    Explore detailed library reports
+                    and borrowing statistics.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="dashboard-footer">
+
+        <p>
+            © 2026 Smart Library Analytics | Smart Insights
+        </p>
+
+        <span>Data-driven library intelligence</span>
+
+    </footer>
+
+</main>
 
 </body>
 </html>

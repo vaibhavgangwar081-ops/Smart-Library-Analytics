@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Portal | Smart Library Analytics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #14213d;
+            --blue: #3157a4;
+            --muted: #77839a;
+            --border: #e4e9f2;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "DM Sans", sans-serif;
+
+            background:
+                radial-gradient(ellipse at 15% 15%, #dce8ff 0%, transparent 42%),
+                radial-gradient(ellipse at 85% 85%, #e7e2ff 0%, transparent 42%),
+                #f6f8fc;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 24px;
+            color: var(--navy);
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 440px;
+            animation: appear 0.7s ease both;
+        }
+
+        /* BRAND */
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .brand-icon {
+            width: 62px;
+            height: 62px;
+
+            display: grid;
+            place-items: center;
+
+            margin: 0 auto 15px;
+
+            border-radius: 19px;
+            color: white;
+
+            font-size: 29px;
+
+            background: linear-gradient(145deg, #294b88, #172c50);
+
+            box-shadow: 0 12px 25px rgba(30, 57, 105, 0.22);
+        }
+
+        .brand h1 {
+            font-family: "Manrope", sans-serif;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        /* LOGIN CARD */
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.92);
+
+            border: 1px solid rgba(255,255,255,0.9);
+            border-radius: 23px;
+
+            padding: 36px;
+
+            box-shadow:
+                0 25px 70px rgba(36, 55, 91, 0.10),
+                0 3px 10px rgba(36, 55, 91, 0.04);
+
+            backdrop-filter: blur(18px);
+        }
+
+        /* HEADING */
+
+        .heading {
+            margin-bottom: 28px;
+        }
+
+        .heading .tag {
+            display: inline-block;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+
+            color: var(--blue);
+            background: #edf3ff;
+
+            padding: 7px 11px;
+            border-radius: 30px;
+
+            margin-bottom: 14px;
+        }
+
+        .heading h2 {
+            font-family: "Manrope", sans-serif;
+            font-size: 27px;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* FLASH MESSAGES */
+
+        .message {
+            padding: 12px 14px;
+            border-radius: 10px;
+
+            font-size: 12px;
+            line-height: 1.5;
+
+            margin-bottom: 19px;
+        }
+
+        .message.error,
+        .message.danger {
+            background: #fff0f0;
+            color: #a32d35;
+            border: 1px solid #ffd9dc;
+        }
+
+        .message.success {
+            background: #eafaf0;
+            color: #187747;
+            border: 1px solid #c9f0d7;
+        }
+
+        .message.warning {
+            background: #fff8e8;
+            color: #9a6811;
+            border: 1px solid #f8e5b6;
+        }
+
+        .message.info {
+            background: #edf5ff;
+            color: #285b9b;
+            border: 1px solid #d4e6ff;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 9px;
+            color: #34425e;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            height: 51px;
+
+            border: 1px solid var(--border);
+            border-radius: 11px;
+
+            padding: 0 15px;
+
+            background: #fbfcff;
+
+            font-family: inherit;
+            font-size: 13px;
+
+            color: var(--navy);
+
+            transition: 0.25s ease;
+        }
+
+        input:focus {
+            outline: none;
+
+            border-color: #6689d0;
+            background: white;
+
+            box-shadow: 0 0 0 4px rgba(67, 110, 190, 0.10);
+        }
+
+        input::placeholder {
+            color: #aab3c2;
+        }
+
+        .password-input {
+            padding-right: 75px;
+        }
+
+        .toggle-password {
+            position: absolute;
+
+            right: 13px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: transparent;
+
+            color: #52698f;
+
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+
+            cursor: pointer;
+            padding: 7px;
+        }
+
+        .toggle-password:hover {
+            color: #172c50;
+        }
+
+        /* LOGIN BUTTON */
+
+        .login-button {
+            width: 100%;
+            height: 52px;
+
+            border: none;
+            border-radius: 11px;
+
+            background: linear-gradient(110deg, #294b88, #172c50);
+
+            color: white;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 8px;
+
+            box-shadow: 0 9px 20px rgba(35, 65, 120, 0.19);
+
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow: 0 13px 25px rgba(35, 65, 120, 0.25);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:focus-visible,
+        .toggle-password:focus-visible,
+        .back-link:focus-visible {
+            outline: 3px solid #6689d0;
+            outline-offset: 3px;
+        }
+
+        /* SECURITY NOTE */
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            color: #8792a5;
+            font-size: 11px;
+
+            margin-top: 20px;
+        }
+
+        /* BACK LINK */
+
+        .back-link {
+            display: block;
+            text-align: center;
+
+            color: #52698f;
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            margin-top: 25px;
+
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #172c50;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+
+            color: #9aa4b5;
+            font-size: 10px;
+
+            margin-top: 24px;
+            line-height: 1.7;
+        }
+
+        /* ANIMATION */
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 480px) {
+
+            .login-card {
+                padding: 27px 22px;
+            }
+
+            .heading h2 {
+                font-size: 24px;
+            }
+
+            body {
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="login-wrapper">
+
+        <!-- BRAND -->
+        <div class="brand">
+
+            <div class="brand-icon">▤</div>
+
+            <h1>Smart Library</h1>
+
+            <p>Analytics & Management System</p>
+
+        </div>
+
+
+        <!-- LOGIN CARD -->
+        <section class="login-card">
+
+            <div class="heading">
+
+                <span class="tag">RESTRICTED ACCESS</span>
+
+                <h2>Welcome back.</h2>
+
+                <p>
+                    Sign in with your authorized librarian credentials
+                    to access the administration portal.
+                </p>
+
+            </div>
+
+
+            <!-- FLASH MESSAGES -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% for category, message in messages %}
+
+                    <div class="message {{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endwith %}
+
+
+            <!-- LOGIN FORM -->
+            <form method="POST" action="{{ url_for('login') }}">
+
+                <!-- EMAIL -->
+                <div class="form-group">
+
+                    <label for="email">
+                        ADMIN EMAIL ADDRESS
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your authorized email"
+                            autocomplete="username"
+                            maxlength="254"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+
+                    <label for="password">
+                        PASSWORD
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <input
+                            class="password-input"
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            class="toggle-password"
+                            type="button"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            aria-pressed="false"
+                        >
+                            SHOW
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT BUTTON -->
+                <button class="login-button" type="submit">
+
+                    Access Admin Portal &nbsp; →
+
+                </button>
+
+            </form>
+
+
+            <!-- SECURITY NOTE -->
+            <div class="security-note">
+
+                <span>🔒</span>
+
+                <span>Authorized librarian access only</span>
+
+            </div>
+
+
+            <!-- BACK TO DASHBOARD -->
+            <a href="{{ url_for('index') }}" class="back-link">
+
+                ← Return to Main Dashboard
+
+            </a>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <div class="footer">
+
+            SMART LIBRARY ANALYTICS SYSTEM<br>
+
+            Secure Administration Portal
+
+        </div>
+
+    </main>
+
+
+    <!-- PASSWORD SHOW / HIDE -->
+    <script>
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const toggleButton =
+            document.getElementById("togglePassword");
+
+
+        toggleButton.addEventListener("click", function () {
+
+            const isHidden =
+                passwordInput.type === "password";
+
+            passwordInput.type =
+                isHidden ? "text" : "password";
+
+            toggleButton.textContent =
+                isHidden ? "HIDE" : "SHOW";
+
+            toggleButton.setAttribute(
+                "aria-label",
+                isHidden ? "Hide password" : "Show password"
+            );
+
+            toggleButton.setAttribute(
+                "aria-pressed",
+                isHidden ? "true" : "false"
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>

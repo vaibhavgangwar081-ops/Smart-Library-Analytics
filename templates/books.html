@@ -1,87 +1,204 @@
-<DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Library | Books</title>
+    <title>SmartLib | Books</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
     <style>
-        .books-page {
-            padding: 30px;
+        .books-layout .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 258px;
+            min-width: 258px;
+            overflow-y: auto;
+            z-index: 1000;
         }
 
-        .filter-section {
+        .books-main {
+            margin-left: 258px;
+            width: calc(100% - 258px);
+            min-height: 100vh;
+            padding: 35px;
+            box-sizing: border-box;
+        }
+
+        .books-heading {
+            margin-bottom: 28px;
+        }
+
+        .books-heading h1 {
+            font-size: 30px;
+            letter-spacing: -0.8px;
+        }
+
+        .books-heading p {
+            color: #718096;
+            margin: 7px 0 10px;
+            font-size: 13px;
+        }
+
+        .books-heading a {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .filter-section,
+        .books-table-container {
             background: white;
-            padding: 22px;
+            padding: 25px;
+            border: 1px solid #e6ecf5;
             border-radius: 14px;
-            margin: 25px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 22px rgba(25, 45, 85, 0.045);
+        }
+
+        .filter-section h2,
+        .books-table-container h2 {
+            font-size: 19px;
+            margin-bottom: 15px;
+            color: #17233c;
         }
 
         .filter-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr auto;
             gap: 12px;
-            margin-top: 15px;
+            margin-top: 18px;
         }
 
         .filter-grid input,
         .filter-grid select {
-            padding: 12px;
-            border: 1px solid #d5dbea;
-            border-radius: 8px;
+            min-width: 0;
             width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dce4f0;
+            border-radius: 9px;
+            background: #fff;
+            color: #26354d;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .filter-grid input:focus,
+        .filter-grid select:focus {
+            border-color: #4388ed;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .clear-btn {
             padding: 12px 18px;
-            background: #5b50e8;
+            background: #2563eb;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 9px;
             cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .clear-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
         }
 
         .books-table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            width: 100%;
             overflow-x: auto;
         }
 
         .books-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 650px;
         }
 
         .books-table th,
         .books-table td {
-            padding: 14px;
+            padding: 15px 17px;
             text-align: left;
-            border-bottom: 1px solid #e5e9f2;
+            border-bottom: 1px solid #edf1f7;
+            font-size: 13px;
         }
 
         .books-table th {
-            background: #eef3ff;
-            color: #293f86;
+            background: #f0f5ff;
+            color: #294a83;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .books-table tbody tr {
+            transition: background 0.2s ease;
         }
 
         .books-table tbody tr:hover {
-            background: #f5f7ff;
+            background: #f5f8ff;
         }
 
         #resultCount {
-            color: #5b50e8;
-            font-weight: bold;
-            margin-bottom: 15px;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 17px;
         }
 
-        @media(max-width: 750px) {
+        #noResults {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #718096;
+            font-size: 13px;
+        }
+
+        @media(max-width: 1000px) {
+            .filter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 650px) {
+            .books-layout .sidebar {
+                position: relative;
+                width: 100%;
+                min-width: 0;
+                height: auto;
+            }
+
+            .books-main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 15px;
+            }
+
             .filter-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .filter-section,
+            .books-table-container {
+                padding: 17px;
+            }
+
+            .books-heading h1 {
+                font-size: 25px;
             }
         }
     </style>
@@ -89,84 +206,182 @@
 
 <body>
 
-<div class="books-page">
+<div class="dashboard books-layout">
 
-    <h1>📚 Library Books</h1>
-    <p>Explore and search books available in the library dataset.</p>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-    <a href="/">← Back to Dashboard</a>
-
-    <!-- Search and Filters -->
-    <section class="filter-section">
-
-        <h2>🔍 Find Your Book</h2>
-
-        <div class="filter-grid">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search by book title or author..."
-            >
-
-            <select id="categoryFilter">
-                <option value="">All Categories</option>
-            </select>
-
-            <select id="originFilter">
-                <option value="">All Origins</option>
-            </select>
-
-            <button class="clear-btn" onclick="clearFilters()">
-                Clear Filters
-            </button>
-
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>SmartLib</h2>
+                <span>ANALYTICS PLATFORM</span>
+            </div>
         </div>
 
-    </section>
+        <div class="nav-label">WORKSPACE</div>
 
-    <!-- Books Table -->
-    <div class="books-table-container">
+        <nav class="sidebar-nav">
 
-        <h2>Available Books</h2>
+            <a href="{{ url_for('index') }}">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
 
-        <p id="resultCount"></p>
+            <a href="{{ url_for('books') }}" class="active">
+                <span class="nav-icon">📚</span>
+                Books
+            </a>
 
-        <table class="books-table" id="booksTable">
+            <a href="{{ url_for('categories') }}">
+                <span class="nav-icon">▧</span>
+                Categories
+            </a>
 
-            <thead>
-                <tr>
-                    <th>Book ID</th>
-                    <th>Book Title</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                    <th>Origin</th>
-                </tr>
-            </thead>
+            <a href="{{ url_for('circulation') }}">
+                <span class="nav-icon">⇄</span>
+                Circulation
+            </a>
 
-            <tbody>
+            <div class="nav-label nav-section-label">INSIGHTS</div>
 
-                {% for book in books %}
-                <tr>
-                    <td>{{ book.Book_ID }}</td>
-                    <td>{{ book.Book_Title }}</td>
-                    <td>{{ book.Author }}</td>
-                    <td>{{ book.Category }}</td>
-                    <td>{{ book.Book_Origin }}</td>
-                </tr>
-                {% endfor %}
+            <a href="{{ url_for('reports') }}">
+                <span class="nav-icon">▥</span>
+                Reports
+            </a>
 
-            </tbody>
+            <a href="{{ url_for('insights') }}">
+                <span class="nav-icon">✧</span>
+                Smart Insights
+            </a>
 
-        </table>
+            <!-- BOOKS DETAILS -->
+            <a href="{{ url_for('inventory') }}">
+                <span class="nav-icon">▣</span>
+                Books Details
+            </a>
 
-        <p id="noResults" style="display:none; text-align:center; padding:20px;">
-            No matching books found.
-        </p>
+            <!-- ADMIN PANEL -->
+            <a href="{{ url_for('login') }}">
+                <span class="nav-icon">⚙</span>
+                Admin Panel
+            </a>
 
-    </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                Analytics system active
+            </div>
+            <p>SmartLib Analytics</p>
+            <small>Project Edition 2026</small>
+        </div>
+
+    </aside>
+
+
+    <!-- BOOKS MAIN CONTENT -->
+    <main class="books-main">
+
+        <header class="books-heading">
+            <span class="eyebrow">LIBRARY / COLLECTION</span>
+            <h1>Library Books</h1>
+            <p>Explore and search books available in the library dataset.</p>
+            <a href="{{ url_for('index') }}">← Back to Dashboard</a>
+        </header>
+
+
+        <!-- SEARCH AND FILTERS -->
+        <section class="filter-section">
+
+            <h2>Find Your Book</h2>
+
+            <div class="filter-grid">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by book title or author..."
+                >
+
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                </select>
+
+                <select id="originFilter">
+                    <option value="">All Origins</option>
+                </select>
+
+                <button class="clear-btn" onclick="clearFilters()">
+                    Clear Filters
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOOKS TABLE -->
+        <section class="books-table-container">
+
+            <span class="eyebrow">COLLECTION OVERVIEW</span>
+            <h2>Available Books</h2>
+
+            <p id="resultCount"></p>
+
+            <div class="table-scroll">
+
+                <table class="books-table" id="booksTable">
+
+                    <thead>
+                        <tr>
+                            <th>Book ID</th>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Origin</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for book in books %}
+                        <tr>
+                            <td>{{ book.Book_ID }}</td>
+                            <td>{{ book.Book_Title }}</td>
+                            <td>{{ book.Author }}</td>
+                            <td>{{ book.Category }}</td>
+                            <td>{{ book.Book_Origin }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">No books found.</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p id="noResults">
+                No matching books found.
+            </p>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+            <p>© 2026 SmartLib Analytics</p>
+            <span>Data-driven library insights</span>
+        </footer>
+
+    </main>
 
 </div>
+
 
 <script>
 
@@ -175,12 +390,12 @@
     const originFilter = document.getElementById("originFilter");
     const table = document.getElementById("booksTable");
 
-    const rows = Array.from(table.querySelectorAll("tbody tr"));
+    const rows = Array.from(table.querySelectorAll("tbody tr"))
+        .filter(row => row.cells.length === 5);
 
     const resultCount = document.getElementById("resultCount");
     const noResults = document.getElementById("noResults");
 
-    // Populate filters using available book records
     const categories = new Set();
     const origins = new Set();
 
@@ -201,7 +416,6 @@
     addOptions(categoryFilter, categories);
     addOptions(originFilter, origins);
 
-    // Apply all filters
     function filterBooks() {
 
         const searchText = searchInput.value.toLowerCase().trim();
@@ -255,7 +469,6 @@
     categoryFilter.addEventListener("change", filterBooks);
     originFilter.addEventListener("change", filterBooks);
 
-    // Initial count
     filterBooks();
 
 </script>

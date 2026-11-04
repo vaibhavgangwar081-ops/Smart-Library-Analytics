@@ -5,10 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Library Analytics</title>
+    <title>SmartLib | Analytics Dashboard</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 22px;
+            min-width: 0;
+        }
+
+        .chart-card-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-card-heading h3 {
+            font-size: 17px;
+            margin: 0;
+        }
+
+        .chart-card-heading span {
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        @media (max-width: 850px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,19 +70,69 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
 
-        <h2>📚 SmartLib</h2>
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>SmartLib</h2>
+                <span>ANALYTICS PLATFORM</span>
+            </div>
+        </div>
 
-        <nav>
-            <a href="/" class="active">▦ Dashboard</a>
-            <a href="/books">📖 Books</a>
-            <a href="/categories">📂 Categories</a>
-            <a href="/circulation">📊 Circulation</a>
-            <a href="/reports">📑 Reports</a>
-            <a href="/insights">💡 Smart Insights</a>
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{{ url_for('index') }}" class="active">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('books') }}">
+                <span class="nav-icon">▤</span>
+                Books
+            </a>
+
+            <a href="{{ url_for('categories') }}">
+                <span class="nav-icon">▧</span>
+                Categories
+            </a>
+
+            <a href="{{ url_for('circulation') }}">
+                <span class="nav-icon">⇄</span>
+                Circulation
+            </a>
+
+            <div class="nav-label nav-section-label">INSIGHTS</div>
+
+            <a href="{{ url_for('reports') }}">
+                <span class="nav-icon">▥</span>
+                Reports
+            </a>
+
+            <a href="{{ url_for('insights') }}">
+                <span class="nav-icon">✧</span>
+                Smart Insights
+            </a>
+
+            <!-- NEW: BOOKS DETAILS -->
+            <a href="{{ url_for('inventory') }}">
+                <span class="nav-icon">▣</span>
+                Books Details
+            </a>
+
+            <a href="/admin">
+                <span class="nav-icon">⚙</span>
+                Admin Panel
+            </a>
+
         </nav>
 
         <div class="sidebar-bottom">
-            <p>Library Analytics</p>
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                Analytics system active
+            </div>
+            <p>SmartLib Analytics</p>
             <small>Project Edition 2026</small>
         </div>
 
@@ -43,86 +145,156 @@
         <!-- TOPBAR -->
         <header class="topbar">
 
-            <div>
-                <h1>Dashboard Overview</h1>
-                <p>Welcome to your Smart Library Analytics System</p>
+            <div class="page-heading">
+                <span class="eyebrow">OVERVIEW / DASHBOARD</span>
+                <h1>Dashboard</h1>
+                <p>Your library performance at a glance.</p>
             </div>
 
-            <div class="profile">👤 Admin</div>
+            <div class="topbar-right">
+
+                <div class="system-indicator">
+                    <span class="status-dot"></span>
+                    System Active
+                </div>
+
+                <div class="profile">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <strong>Administrator</strong>
+                        <span>Library Manager</span>
+                    </div>
+                </div>
+
+            </div>
 
         </header>
 
 
-        <!-- WELCOME SECTION -->
+        <!-- WELCOME BANNER -->
         <section class="welcome">
 
-            <div>
-                <h2>Library Insights at a Glance ✨</h2>
+            <div class="welcome-content">
+
+                <span class="welcome-tag">
+                    SMART LIBRARY ANALYTICS
+                </span>
+
+                <h2>Make smarter decisions<br>with library data.</h2>
 
                 <p>
-                    Monitor borrowing trends and understand
-                    library performance.
+                    Explore circulation patterns, discover popular books
+                    and understand your library's performance.
                 </p>
+
+                <a href="{{ url_for('insights') }}" class="welcome-button">
+                    Explore Smart Insights <span>→</span>
+                </a>
+
             </div>
 
-            <span>📚</span>
+            <div class="welcome-visual" aria-hidden="true">
+                <div class="visual-circle circle-one"></div>
+                <div class="visual-circle circle-two"></div>
+                <div class="book-visual">▤</div>
+                <div class="visual-caption">DATA • DISCOVER • IMPROVE</div>
+            </div>
 
         </section>
 
 
-        <!-- STATISTICS CARDS -->
-        <section class="stats">
+        <!-- KPI CARDS -->
+        <section class="stats-section">
 
-            <div class="stat-card">
-                <p>Total Borrowings</p>
-                <h2>{{ total_books }}</h2>
-                <span>All recorded loans</span>
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">KEY METRICS</span>
+                    <h2>Library at a glance</h2>
+                </div>
+                <span class="section-note">
+                    Based on recorded loan data
+                </span>
             </div>
 
-            <div class="stat-card">
-                <p>Active Loans</p>
-                <h2>{{ active }}</h2>
-                <span>Currently issued books</span>
-            </div>
+            <div class="stats">
 
-            <div class="stat-card">
-                <p>Late Returns</p>
-                <h2>{{ late_returns }}</h2>
-                <span>Recorded late returns</span>
-            </div>
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-icon icon-blue">▤</span>
+                        <span class="stat-label">TOTAL BORROWINGS</span>
+                    </div>
+                    <h2>{{ total_books }}</h2>
+                    <p>All recorded loan transactions</p>
+                </article>
 
-            <div class="stat-card">
-                <p>Book Categories</p>
-                <h2>{{ total_categories }}</h2>
-                <span>Unique categories</span>
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-icon icon-green">↗</span>
+                        <span class="stat-label">ACTIVE LOANS</span>
+                    </div>
+                    <h2>{{ active }}</h2>
+                    <p>Currently issued books</p>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-icon icon-orange">◷</span>
+                        <span class="stat-label">LATE RETURNS</span>
+                    </div>
+                    <h2>{{ late_returns }}</h2>
+                    <p>Recorded late return transactions</p>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-icon icon-purple">▦</span>
+                        <span class="stat-label">CATEGORIES</span>
+                    </div>
+                    <h2>{{ total_categories }}</h2>
+                    <p>Unique book categories</p>
+                </article>
+
             </div>
 
         </section>
 
 
         <!-- LOAN STATUS -->
-        <section class="content-card">
+        <section class="content-card loan-section">
 
-            <h2>📊 Loan Status Summary</h2>
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">CIRCULATION OVERVIEW</span>
+                    <h2>Loan status summary</h2>
+                </div>
+
+                <a href="{{ url_for('circulation') }}" class="text-link">
+                    View circulation →
+                </a>
+            </div>
 
             <div class="summary-grid">
 
-                <div>
+                <div class="summary-item">
+                    <span class="summary-indicator returned-indicator"></span>
                     <p>Returned Books</p>
                     <h3>{{ returned }}</h3>
                 </div>
 
-                <div>
+                <div class="summary-item">
+                    <span class="summary-indicator active-indicator"></span>
                     <p>Active Loans</p>
                     <h3>{{ active }}</h3>
                 </div>
 
-                <div>
+                <div class="summary-item">
+                    <span class="summary-indicator overdue-indicator"></span>
                     <p>Overdue Loans</p>
                     <h3>{{ overdue }}</h3>
                 </div>
 
-                <div>
+                <div class="summary-item">
+                    <span class="summary-indicator rate-indicator"></span>
                     <p>Late Return Rate</p>
                     <h3>{{ late_rate }}%</h3>
                 </div>
@@ -132,74 +304,127 @@
         </section>
 
 
-        <!-- LIBRARY PERFORMANCE -->
-        <section class="content-card">
+        <!-- QUICK ACCESS -->
+        <section class="content-card performance-section">
 
-            <h2>📈 Library Performance</h2>
-
-            <p>
-                Explore borrowing patterns, popular books,
-                category performance and loan status.
-            </p>
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">QUICK ACCESS</span>
+                    <h2>Explore your library</h2>
+                </div>
+            </div>
 
             <div class="quick-links">
 
-                <a href="/books">Explore Books →</a>
+                <a href="{{ url_for('books') }}" class="quick-link">
+                    <span class="quick-icon">▤</span>
+                    <span>
+                        <strong>Book Collection</strong>
+                        <small>Explore available book records</small>
+                    </span>
+                    <span class="quick-arrow">→</span>
+                </a>
 
-                <a href="/categories">View Categories →</a>
+                <!-- NEW: BOOKS DETAILS -->
+                <a href="{{ url_for('inventory') }}" class="quick-link">
+                    <span class="quick-icon">▣</span>
+                    <span>
+                        <strong>Books Details</strong>
+                        <small>View total, available and issued copies</small>
+                    </span>
+                    <span class="quick-arrow">→</span>
+                </a>
 
-                <a href="/circulation">Track Circulation →</a>
+                <a href="{{ url_for('categories') }}" class="quick-link">
+                    <span class="quick-icon">▦</span>
+                    <span>
+                        <strong>Categories</strong>
+                        <small>Review category-wise demand</small>
+                    </span>
+                    <span class="quick-arrow">→</span>
+                </a>
+
+                <a href="{{ url_for('reports') }}" class="quick-link">
+                    <span class="quick-icon">▥</span>
+                    <span>
+                        <strong>Analytics Reports</strong>
+                        <small>View library performance reports</small>
+                    </span>
+                    <span class="quick-arrow">→</span>
+                </a>
+
+                <a href="/admin" class="quick-link">
+                    <span class="quick-icon">⚙</span>
+                    <span>
+                        <strong>Admin Panel</strong>
+                        <small>Add books, issue and manage returns</small>
+                    </span>
+                    <span class="quick-arrow">→</span>
+                </a>
 
             </div>
 
         </section>
 
 
-        <!-- ANALYTICS CHARTS -->
+        <!-- DYNAMIC ANALYTICS CHARTS -->
         <section class="chart-section">
 
-            <h2>Library Analytics</h2>
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">DATA VISUALIZATION</span>
+                    <h2>Library analytics</h2>
+                    <p class="chart-subtitle">
+                        Live visual insights from library database records.
+                    </p>
+                </div>
 
-            <p class="chart-subtitle">
-                Visual analysis of library borrowing and circulation data
-            </p>
+                <a href="{{ url_for('reports') }}" class="text-link">
+                    View all reports →
+                </a>
+            </div>
 
             <div class="charts-grid">
 
-                <div class="chart-card">
-                    <h3>Monthly Circulation</h3>
+                <article class="chart-card">
+                    <div class="chart-card-heading">
+                        <h3>Monthly Circulation</h3>
+                        <span>01</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </article>
 
-                    <img
-                        src="{{ url_for('static', filename='images/monthly_circulation.png') }}"
-                        alt="Monthly Circulation Chart">
-                </div>
+                <article class="chart-card">
+                    <div class="chart-card-heading">
+                        <h3>Top 10 Most Borrowed Books</h3>
+                        <span>02</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="booksChart"></canvas>
+                    </div>
+                </article>
 
+                <article class="chart-card">
+                    <div class="chart-card-heading">
+                        <h3>Category-wise Borrowing</h3>
+                        <span>03</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </article>
 
-                <div class="chart-card">
-                    <h3>Top 10 Most Borrowed Books</h3>
-
-                    <img
-                        src="{{ url_for('static', filename='images/top_10_books.png') }}"
-                        alt="Top 10 Books Chart">
-                </div>
-
-
-                <div class="chart-card">
-                    <h3>Category-wise Borrowing</h3>
-
-                    <img
-                        src="{{ url_for('static', filename='images/category_analysis.png') }}"
-                        alt="Category Analysis Chart">
-                </div>
-
-
-                <div class="chart-card">
-                    <h3>Loan Status Analysis</h3>
-
-                    <img
-                        src="{{ url_for('static', filename='images/loan_status_analysis.png') }}"
-                        alt="Loan Status Chart">
-                </div>
+                <article class="chart-card">
+                    <div class="chart-card-heading">
+                        <h3>Loan Status Analysis</h3>
+                        <span>04</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </article>
 
             </div>
 
@@ -208,12 +433,262 @@
 
         <!-- FOOTER -->
         <footer class="dashboard-footer">
-            <p>Smart Library Analytics System | Project Edition 2026</p>
+            <p>
+                © 2026 SmartLib Analytics. Built for smarter library management.
+            </p>
+            <span>Data-driven library insights</span>
         </footer>
 
     </main>
 
 </div>
+
+
+<!-- DATABASE CHART DATA -->
+<script>
+    const chartData = {{ chart_data | safe }};
+
+    // Supports the nested chart data returned by app.py
+    function getChartPart(part, labelNames, valueNames) {
+
+        const source = chartData[part] || {};
+
+        if (Array.isArray(source)) {
+            return {
+                labels: source.map(item =>
+                    item.label ?? item.name ?? item.month ?? item.title
+                ),
+                values: source.map(item =>
+                    Number(item.value ?? item.count ?? item.total ?? 0)
+                )
+            };
+        }
+
+        const labels =
+            source.labels ??
+            source.months ??
+            source.names ??
+            source.categories ??
+            source.books ??
+            [];
+
+        const values =
+            source.values ??
+            source.counts ??
+            source.data ??
+            source.totals ??
+            [];
+
+        if (Array.isArray(labels) && Array.isArray(values)) {
+            return { labels, values };
+        }
+
+        // Also supports separate top-level arrays
+        let foundLabels = [];
+        let foundValues = [];
+
+        for (const key of labelNames) {
+            if (Array.isArray(chartData[key])) {
+                foundLabels = chartData[key];
+                break;
+            }
+        }
+
+        for (const key of valueNames) {
+            if (Array.isArray(chartData[key])) {
+                foundValues = chartData[key];
+                break;
+            }
+        }
+
+        return {
+            labels: foundLabels,
+            values: foundValues
+        };
+    }
+
+
+    const monthly = getChartPart(
+        "monthly",
+        ["monthly_labels", "months"],
+        ["monthly_values", "monthly_counts"]
+    );
+
+    const books = getChartPart(
+        "top_books",
+        ["top_books_labels", "book_labels"],
+        ["top_books_values", "book_counts"]
+    );
+
+    const categories = getChartPart(
+        "categories",
+        ["category_labels", "categories_labels"],
+        ["category_values", "category_counts"]
+    );
+
+    const statuses = getChartPart(
+        "status",
+        ["status_labels", "loan_status_labels"],
+        ["status_values", "loan_status_values"]
+    );
+
+
+    // Common chart settings
+    Chart.defaults.font.family = "Arial, sans-serif";
+    Chart.defaults.color = "#64748b";
+
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    };
+
+
+    // 1. MONTHLY CIRCULATION
+    new Chart(document.getElementById("monthlyChart"), {
+        type: "bar",
+
+        data: {
+            labels: monthly.labels,
+
+            datasets: [{
+                label: "Borrowings",
+                data: monthly.values,
+                backgroundColor: "#3478f6",
+                borderRadius: 6,
+                maxBarThickness: 30
+            }]
+        },
+
+        options: {
+            ...commonOptions,
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+
+    // 2. TOP 10 BOOKS
+    new Chart(document.getElementById("booksChart"), {
+        type: "bar",
+
+        data: {
+            labels: books.labels,
+
+            datasets: [{
+                label: "Borrowings",
+                data: books.values,
+                backgroundColor: "#16a085",
+                borderRadius: 5
+            }]
+        },
+
+        options: {
+            ...commonOptions,
+
+            indexAxis: "y",
+
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+
+    // 3. CATEGORY ANALYSIS
+    new Chart(document.getElementById("categoryChart"), {
+        type: "doughnut",
+
+        data: {
+            labels: categories.labels,
+
+            datasets: [{
+                data: categories.values,
+
+                backgroundColor: [
+                    "#3478f6",
+                    "#16a085",
+                    "#f59e0b",
+                    "#8b5cf6",
+                    "#ec4899",
+                    "#06b6d4",
+                    "#f97316",
+                    "#64748b",
+                    "#84cc16",
+                    "#e11d48",
+                    "#a855f7",
+                    "#14b8a6"
+                ],
+
+                borderWidth: 2,
+                borderColor: "#ffffff"
+            }]
+        },
+
+        options: {
+            ...commonOptions,
+
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
+
+    // 4. LOAN STATUS
+    new Chart(document.getElementById("statusChart"), {
+        type: "pie",
+
+        data: {
+            labels: statuses.labels,
+
+            datasets: [{
+                data: statuses.values,
+
+                backgroundColor: [
+                    "#16a085",
+                    "#3478f6",
+                    "#f59e0b"
+                ],
+
+                borderWidth: 2,
+                borderColor: "#ffffff"
+            }]
+        },
+
+        options: {
+            ...commonOptions,
+
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
+    console.log("SmartLib database chart data:", chartData);
+</script>
 
 </body>
 </html>
